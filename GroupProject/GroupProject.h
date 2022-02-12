@@ -27,3 +27,13 @@ GROUPPROJECT_API char* GetTeam();
 GROUPPROJECT_API void SetMaze(const int** data, int width, int height);
 
 GROUPPROJECT_API int** GetMaze(int& width, int& height);
+
+GROUPPROJECT_API void GetNextPosition(int& xpos, int& ypos);
+
+GROUPPROJECT_API void SetStart(int xpos, int ypos);
+
+GROUPPROJECT_API void GetStart(int& xpos, int& ypos);
+
+GROUPPROJECT_API void SetEnd(int xpos, int ypos);
+
+GROUPPROJECT_API void GetEnd(int& xpos, int& ypos);
