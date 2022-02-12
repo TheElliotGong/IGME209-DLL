@@ -14,6 +14,12 @@ GROUPPROJECT_API int fnGroupProject(void)
 {
     return 0;
 }
+//Instantiate GetTeam function.
+const char* names = "Elliot Gong & Michael Xie";
+char* GetTeam()
+{
+    return (char*)names;
+}
 
 // This is the constructor of a class that has been exported.
 CGroupProject::CGroupProject()

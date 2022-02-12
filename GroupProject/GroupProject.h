@@ -20,3 +20,6 @@ public:
 extern GROUPPROJECT_API int nGroupProject;
 
 GROUPPROJECT_API int fnGroupProject(void);
+
+//Declare GetTeam function.
+GROUPPROJECT_API char* GetTeam();
