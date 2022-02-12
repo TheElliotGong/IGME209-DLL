@@ -1,0 +1,2 @@
+#define GROUPPROJECT_API __declspec(dllexport)
+#define GROUPPROJECT_API __declspec(dllimport)
