@@ -16,9 +16,18 @@ GROUPPROJECT_API int fnGroupProject(void)
 }
 //Instantiate GetTeam function.
 const char* names = "Elliot Gong & Michael Xie";
+
+int mazeWidth;
+int mazeHeight;
 char* GetTeam()
 {
     return (char*)names;
+}
+
+void SetMaze(const int** data, int width, int height)
+{
+    mazeWidth = width;
+    mazeHeight = height;
 }
 
 // This is the constructor of a class that has been exported.
