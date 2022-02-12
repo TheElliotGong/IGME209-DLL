@@ -14,11 +14,12 @@ GROUPPROJECT_API int fnGroupProject(void)
 {
     return 0;
 }
-//Instantiate GetTeam function.
 const char* names = "Elliot Gong & Michael Xie";
 
-int mazeWidth;
-int mazeHeight;
+typedef int* maze;
+
+maze* mazeData;
+
 char* GetTeam()
 {
     return (char*)names;
@@ -26,8 +27,15 @@ char* GetTeam()
 
 void SetMaze(const int** data, int width, int height)
 {
-    mazeWidth = width;
-    mazeHeight = height;
+
+
+}
+
+//int& width = 8 - WRong;
+//int& width = widthVar - Right;
+int** GetMaze(int& width, int& height)
+{
+   
 }
 
 // This is the constructor of a class that has been exported.

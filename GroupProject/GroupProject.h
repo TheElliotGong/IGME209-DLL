@@ -25,3 +25,5 @@ GROUPPROJECT_API int fnGroupProject(void);
 GROUPPROJECT_API char* GetTeam();
 
 GROUPPROJECT_API void SetMaze(const int** data, int width, int height);
+
+GROUPPROJECT_API int** GetMaze(int& width, int& height);
