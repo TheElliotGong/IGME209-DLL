@@ -27,15 +27,24 @@ char* GetTeam()
 
 void SetMaze(const int** data, int width, int height)
 {
+    mazeData = new maze[height];
+    for (int i = 0; i < height; i++)
+    {
+        mazeData[i] = new int[width];
+    }
 
-
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            mazeData[i][j] = data[i][j];
+        }
+    }
 }
 
-//int& width = 8 - WRong;
-//int& width = widthVar - Right;
 int** GetMaze(int& width, int& height)
 {
-   
+    return mazeData;
 }
 
 // This is the constructor of a class that has been exported.
