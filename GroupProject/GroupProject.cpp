@@ -15,33 +15,46 @@ GROUPPROJECT_API int fnGroupProject(void)
     return 0;
 }
 const char* names = "Elliot Gong & Michael Xie";
-
+//Custom pointer data type.
 typedef int* maze;
-
+//Double pointer field.
 maze* mazeData;
+//Fields for the dll file.
 int mazeWidth;
 int mazeHeight;
 int startX;
 int startY;
+int currentX;
+int currentY;
 int endX;
 int endY;
+//arrays to keep track of possible x and y coordinates.
+int xLocations[11] = {4, 2, 1, 3, 6, 0, 11, 9, 7, 5};
+int yLocations[11] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+int incr = -1;
 
 char* GetTeam()
 {
     return (char*)names;
 }
-
+/// <summary>
+/// This function saves the maze data created from maze program into dll.
+/// </summary>
+/// <param name="data">This refers to the double pointer used to hold the original maze data.</param>
+/// <param name="width">This is the maze width.</param>
+/// <param name="height">This is the maze height.</param>
 void SetMaze(const int** data, int width, int height)
 {
+    //Assign parameter values to private variables.
     mazeHeight = height;
     mazeWidth = width;
-
+    //Instantiate the custom data type used for the maze.
     mazeData = new maze[height];
     for (int i = 0; i < height; i++)
     {
         mazeData[i] = new int[width];
     }
-
+    //Copy the data from the original maze data into the new 2D array.
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
@@ -60,13 +73,24 @@ int** GetMaze(int& width, int& height)
 
 void GetNextPosition(int& xpos, int& ypos)
 {
+    incr++;
+    xpos = xLocations[incr];
+    ypos = yLocations[incr];
+    currentX = xpos;
+    currentY = ypos;
 
+    if (incr > 9)
+    {
+        incr = -1;
+    }
 }
 
 void SetStart(int xpos, int ypos)
 {
     startX = xpos;
     startY = ypos;
+    currentX = xpos;
+    currentY = ypos;
 }
 
 void GetStart(int& xpos, int& ypos)
@@ -82,7 +106,11 @@ void GetStart(int& xpos, int& ypos)
         ypos = startY;
     }
 }
-
+/// <summary>
+/// Save the end position to the dll file.
+/// </summary>
+/// <param name="xpos">The new x position of the end location.</param>
+/// <param name="ypos">The new y positoin of the end location.</param>
 void SetEnd(int xpos, int ypos)
 {
     endX = xpos;
