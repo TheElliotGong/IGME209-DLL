@@ -15,10 +15,9 @@ GROUPPROJECT_API int fnGroupProject(void)
     return 0;
 }
 const char* names = "Elliot Gong & Michael Xie";
-//Custom pointer data type.
-typedef int* maze;
+
 //Double pointer field.
-maze* mazeData;
+
 //Fields for the dll file.
 int mazeWidth;
 int mazeHeight;
@@ -49,7 +48,7 @@ void SetMaze(const int** data, int width, int height)
     mazeHeight = height;
     mazeWidth = width;
     //Instantiate the custom data type used for the maze.
-    mazeData = new maze[height];
+    mazeData = new int* [height];
     for (int i = 0; i < height; i++)
     {
         mazeData[i] = new int[width];

@@ -20,6 +20,7 @@ public:
 extern GROUPPROJECT_API int nGroupProject;
 
 GROUPPROJECT_API int fnGroupProject(void);
+GROUPPROJECT_API int** mazeData;
 
 //Declare GetTeam function.
 GROUPPROJECT_API char* GetTeam();
