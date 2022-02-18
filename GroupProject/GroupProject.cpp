@@ -16,17 +16,6 @@ GROUPPROJECT_API int fnGroupProject(void)
 }
 const char* names = "Elliot Gong & Michael Xie";
 
-//Double pointer field.
-
-//Fields for the dll file.
-int mazeWidth;
-int mazeHeight;
-int startX;
-int startY;
-int currentX;
-int currentY;
-int endX;
-int endY;
 //arrays to keep track of possible x and y coordinates.
 int xLocations[11] = {4, 2, 1, 3, 6, 0, 11, 9, 7, 5};
 int yLocations[11] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
