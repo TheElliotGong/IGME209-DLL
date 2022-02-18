@@ -83,7 +83,7 @@ void SetStart(int xpos, int ypos)
 
 void GetStart(int& xpos, int& ypos)
 {
-    if (startX < 0 || startY < 0 || startX >= mazeWidth || startY >= mazeHeight)
+    if (startX < 0 || startY < 0 || startX >= mazeWidth || startY >= mazeHeight || startX == NULL || startY == NULL)
     {
         xpos = -1;
         ypos = -1;
@@ -107,7 +107,7 @@ void SetEnd(int xpos, int ypos)
 
 void GetEnd(int& xpos, int& ypos)
 {
-    if (endX < 0 || endY < 0 || endX >= mazeWidth || endY >= mazeHeight)
+    if (endX < 0 || endY < 0 || endX >= mazeWidth || endY >= mazeHeight || endX == NULL || endY == NULL)
     {
         xpos = -1;
         ypos = -1;
