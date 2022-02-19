@@ -4,7 +4,11 @@
 #include "pch.h"
 #include "framework.h"
 #include "GroupProject.h"
-
+/*Authors: Elliot Gong and Michael Xie
+* Purpose: Instantiate functions and use the declared variables in the header.
+* Restrictions: Must have functions store and tweak data for the maze.
+* Date: 2/17/2022
+*/
 
 // This is an example of an exported variable
 GROUPPROJECT_API int nGroupProject=0;
@@ -20,7 +24,10 @@ const char* names = "Elliot Gong & Michael Xie";
 int xLocations[11] = {4, 2, 1, 3, 6, 0, 11, 9, 7, 5};
 int yLocations[11] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 int incr = -1;
-
+/// <summary>
+/// This method returns our group name.
+/// </summary>
+/// <returns>The string holding our team name.</returns>
 char* GetTeam()
 {
     return (char*)names;
@@ -51,28 +58,43 @@ void SetMaze(const int** data, int width, int height)
         }
     }
 }
-
+/// <summary>
+/// Return the 2d pointer array that holds the maze data. Also take the width and height
+/// variables stored in the dll, and store their values in the reference parameters.
+/// </summary>
+/// <param name="width">The variable that'll hold the width value.</param>
+/// <param name="height">The variable that'll hold the height value.</param>
+/// <returns></returns>
 int** GetMaze(int& width, int& height)
 {
     width = mazeWidth;
     height = mazeHeight;
     return mazeData;
 }
-
+/// <summary>
+/// This function sets the next positon to move to.
+/// </summary>
+/// <param name="xpos">The reference variable to hold the destination x position.</param>
+/// <param name="ypos">The reference variable to hold the destination y position.</param>
 void GetNextPosition(int& xpos, int& ypos)
 {
+    //Randomly choose a new x and y coordinate to set as the new position.
     incr++;
     xpos = xLocations[incr];
     ypos = yLocations[incr];
     currentX = xpos;
     currentY = ypos;
-
+    //Reset the increment variable for the next function call.
     if (incr > 9)
     {
         incr = -1;
     }
 }
-
+/// <summary>
+/// This method sets the starting location of the maze.
+/// </summary>
+/// <param name="xpos">The value used to set the x position.</param>
+/// <param name="ypos">The value used to set the y posiiton.</param>
 void SetStart(int xpos, int ypos)
 {
     startX = xpos;
@@ -80,14 +102,22 @@ void SetStart(int xpos, int ypos)
     currentX = xpos;
     currentY = ypos;
 }
-
+/// <summary>
+/// Access the start positions and place their values into the reference parameters.
+/// </summary>
+/// <param name="xpos">The reference variable that will hold the x position.</param>
+/// <param name="ypos">The reference variable that will hold the y position.</param>
 void GetStart(int& xpos, int& ypos)
 {
+    //Check if positions are within maze bounds and aren't null.
     if (startX < 0 || startY < 0 || startX >= mazeWidth || startY >= mazeHeight || startX == NULL || startY == NULL)
     {
+        //Set reference variable values to =1.
         xpos = -1;
         ypos = -1;
     }
+    //Otherwise, set reference variable values equal to those of the 
+    //stored end position variables in the dll.
     else
     {
         xpos = startX;
@@ -104,14 +134,22 @@ void SetEnd(int xpos, int ypos)
     endX = xpos;
     endY = ypos;
 }
-
+/// <summary>
+/// Access the end positions and place their values into the reference parameters.
+/// </summary>
+/// <param name="xpos">The reference variable that will hold the x position.</param>
+/// <param name="ypos">The reference variable that will hold the y position.</param>
 void GetEnd(int& xpos, int& ypos)
 {
+    //Check if positions are within maze bounds and aren't null.
     if (endX < 0 || endY < 0 || endX >= mazeWidth || endY >= mazeHeight || endX == NULL || endY == NULL)
     {
+        //Set reference variable values to =1.
         xpos = -1;
         ypos = -1;
     }
+    //Otherwise, set reference variable values equal to those of the 
+    //stored end position variables in the dll.
     else
     {
         xpos = endX;
