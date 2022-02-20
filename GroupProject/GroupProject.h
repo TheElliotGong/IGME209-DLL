@@ -25,7 +25,6 @@ extern GROUPPROJECT_API int nGroupProject;
 
 GROUPPROJECT_API int fnGroupProject(void);
 
-//Declare global custom data type, used to hold a 2d array of ints.
 
 //Created a double pointer used to hold the maze data via a 2d array.
 GROUPPROJECT_API int** mazeData;

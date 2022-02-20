@@ -187,6 +187,7 @@ namespace UnitTest
 		/// </summary>
 		TEST_METHOD(GetEndTest)
 		{
+			
 			//Set the dll width/height variables.
 			mazeWidth = 3;
 			mazeHeight = 3;

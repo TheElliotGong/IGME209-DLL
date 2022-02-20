@@ -5,7 +5,7 @@
 #include "framework.h"
 #include "GroupProject.h"
 /*Authors: Elliot Gong and Michael Xie
-* Purpose: Instantiate functions and use the declared variables in the header.
+* Purpose: Instantiate functions and use the variables declared in the header.
 * Restrictions: Must have functions store and tweak data for the maze.
 * Date: 2/17/2022
 */
@@ -18,9 +18,11 @@ GROUPPROJECT_API int fnGroupProject(void)
 {
     return 0;
 }
+//The const char pointer holding our names.
 const char* names = "Elliot Gong & Michael Xie";
 
-//arrays to keep track of possible x and y coordinates.
+//Variables to hold possible x and y coordinates as well as the index variable
+//used to access said coordinates.
 int xLocations[11] = {4, 2, 1, 3, 6, 0, 11, 9, 7, 5};
 int yLocations[11] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 int incr = -1;
@@ -82,6 +84,7 @@ void GetNextPosition(int& xpos, int& ypos)
     incr++;
     xpos = xLocations[incr];
     ypos = yLocations[incr];
+    //Set the value for the new current position.
     currentX = xpos;
     currentY = ypos;
     //Reset the increment variable for the next function call.
@@ -99,6 +102,8 @@ void SetStart(int xpos, int ypos)
 {
     startX = xpos;
     startY = ypos;
+    //Also set the current position, since we all start at the beginning
+    //location.
     currentX = xpos;
     currentY = ypos;
 }

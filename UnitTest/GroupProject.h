@@ -24,7 +24,7 @@ public:
 extern GROUPPROJECT_API int nGroupProject;
 
 GROUPPROJECT_API int fnGroupProject(void);
-//Declare global variables, that'll be accesible to the unit test.
+
 
 //Created a double pointer used to hold the maze data via a 2d array.
 GROUPPROJECT_API int** mazeData;
@@ -38,6 +38,7 @@ GROUPPROJECT_API int currentX;
 GROUPPROJECT_API int currentY;
 GROUPPROJECT_API int endX;
 GROUPPROJECT_API int endY;
+
 //Declare GetTeam function.
 GROUPPROJECT_API char* GetTeam();
 //Declare the SetMaze function.
