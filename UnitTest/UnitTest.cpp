@@ -46,18 +46,18 @@ namespace UnitTest
 			int** test = new int*[3];
 			for (int i = 0; i < 3; i++)
 			{
-				test[i] = new int[3];
+				test[i] = new int[4];
 			}
 			//Set the values for the local 2d array's elements.
 			for (int i = 0; i < 3; i++)
 			{
-				for (int j = 0; j < 3; j++)
+				for (int j = 0; j < 4; j++)
 				{
 					test[i][j] = 1;
 				}
 			}
 			//Pass in the 2d array into the set maze function.
-			SetMaze((const int**)test, 3, 3);
+			SetMaze((const int**)test, 3, 4);
 			//Declare some variables to check to see if the local 2d array and the 2d array
 			//stored in the dll are equal.
 			bool notEqual = true;
@@ -66,7 +66,7 @@ namespace UnitTest
 			//check if they're equal.
 			for (int i = 0; i < 3; i++)
 			{
-				for (int j = 0; j < 3; j++)
+				for (int j = 0; j < 4; j++)
 				{
 					if (mazeData[i][j] == test[i][j])
 					{
@@ -75,7 +75,7 @@ namespace UnitTest
 				}
 			}
 			//If all elements in both arrays are equal, set the local bool variable to false.
-			if (correct == 9)
+			if (correct == 12)
 			{
 				notEqual = false;
 			}
@@ -91,18 +91,18 @@ namespace UnitTest
 			int** test = new int* [3];
 			for (int i = 0; i < 3; i++)
 			{
-				test[i] = new int[3];
+				test[i] = new int[4];
 			}
 			//Set the element values for the local 2d array.
 			for (int i = 0; i < 3; i++)
 			{
-				for (int j = 0; j < 3; j++)
+				for (int j = 0; j < 4; j++)
 				{
 					test[i][j] = 1;
 				}
 			}
 			//Pass in the 2d array into the set maze function.
-			SetMaze((const int**)test, 3, 3);
+			SetMaze((const int**)test, 3, 4);
 			//These variables will be used to store the values produced
 			//by the get maze function.
 			int width;
@@ -117,7 +117,7 @@ namespace UnitTest
 			//check if they're equal.
 			for (int i = 0; i < 3; i++)
 			{
-				for (int j = 0; j < 3; j++)
+				for (int j = 0; j < 4; j++)
 				{
 					if (mazeData[i][j] == maze[i][j])
 					{
@@ -126,7 +126,7 @@ namespace UnitTest
 				}
 			}
 			//If all elements in both arrays are equal, set the local bool variable to false.
-			if (correct == 9)
+			if (correct == 12)
 			{
 				notEqual = false;
 			}

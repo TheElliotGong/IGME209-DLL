@@ -46,15 +46,15 @@ void SetMaze(const int** data, int width, int height)
     mazeHeight = height;
     mazeWidth = width;
     //Instantiate the custom data type used for the maze.
-    mazeData = new int* [height];
-    for (int i = 0; i < height; i++)
+    mazeData = new int* [width];
+    for (int i = 0; i < width; i++)
     {
-        mazeData[i] = new int[width];
+        mazeData[i] = new int[height];
     }
     //Copy the data from the original maze data into the new 2D array.
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < width; i++)
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < height; j++)
         {
             mazeData[i][j] = data[i][j];
         }
