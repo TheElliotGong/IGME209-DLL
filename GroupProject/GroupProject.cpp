@@ -35,44 +35,65 @@ char* GetTeam()
     return (char*)names;
 }
 /// <summary>
-/// This function saves the maze data created from maze program into dll.
+/// 
 /// </summary>
-/// <param name="data">This refers to the double pointer used to hold the original maze data.</param>
-/// <param name="width">This is the maze width.</param>
-/// <param name="height">This is the maze height.</param>
-void SetMaze(const int** data, int width, int height)
+/// <param name="data"></param>
+/// <param name="width"></param>
+/// <param name="height"></param>
+/// <returns>Returns a bool based on the success of the setting of the maze data.</returns>
+bool SetMaze(const int** data, int width, int height)
 {
-    //Assign parameter values to private variables.
-    mazeHeight = height;
-    mazeWidth = width;
-    //Instantiate the custom data type used for the maze.
-    mazeData = new int* [width];
-    for (int i = 0; i < width; i++)
+    //Return false if if parameters are invalid.
+    if (width <= 0 || height <= 0 || data == nullptr)
     {
-        mazeData[i] = new int[height];
+        return false;
     }
-    //Copy the data from the original maze data into the new 2D array.
-    for (int i = 0; i < width; i++)
+    //Otherwise, save the parameters into variables in the dll.
+    else
     {
-        for (int j = 0; j < height; j++)
+        //Set values of the width/height fields.
+        mazeHeight = height;
+        mazeWidth = width;
+        //Instantiate the custom data type used for the maze.
+        mazeData = new int* [width];
+        for (int i = 0; i < width; i++)
         {
-            mazeData[i][j] = data[i][j];
+            mazeData[i] = new int[height];
         }
+        //Copy the data from the original maze data into the new 2D array.
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                mazeData[i][j] = data[i][j];
+            }
+        }
+        return true;
     }
+    
 }
 /// <summary>
-/// Return the 2d pointer array that holds the maze data. Also take the width and height
-/// variables stored in the dll, and store their values in the reference parameters.
+/// This function returns the maze data stored in the dll.
 /// </summary>
-/// <param name="width">The variable that'll hold the width value.</param>
-/// <param name="height">The variable that'll hold the height value.</param>
-/// <returns></returns>
+/// <param name="width">The reference variable to hold the maze width.</param>
+/// <param name="height">The reference variable to hold the maze height.</param>
+/// <returns>Returns the double pointer/2D pointer array of maze values. </returns>
 int** GetMaze(int& width, int& height)
 {
-    width = mazeWidth;
-    height = mazeHeight;
-    return mazeData;
+    //Check if maze data hasn't been set yet.
+    if (mazeData == nullptr || mazeHeight == 0 || mazeWidth == 0)
+    {
+        return nullptr;
+    }
+    //Otherwise, return it.
+    else
+    {
+        width = mazeWidth;
+        height = mazeHeight;
+        return mazeData;
+    }
 }
+    
 /// <summary>
 /// This function sets the next positon to move to.
 /// </summary>

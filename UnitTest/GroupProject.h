@@ -42,7 +42,7 @@ GROUPPROJECT_API int endY;
 //Declare GetTeam function.
 GROUPPROJECT_API char* GetTeam();
 //Declare the SetMaze function.
-GROUPPROJECT_API void SetMaze(const int** data, int width, int height);
+GROUPPROJECT_API bool SetMaze(const int** data, int width, int height);
 //Declare GetMaze function.
 GROUPPROJECT_API int** GetMaze(int& width, int& height);
 //Declare GetNextPosition function.
