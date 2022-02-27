@@ -99,7 +99,7 @@ int** GetMaze(int& width, int& height)
 /// </summary>
 /// <param name="xpos">The reference variable to hold the destination x position.</param>
 /// <param name="ypos">The reference variable to hold the destination y position.</param>
-void GetNextPosition(int& xpos, int& ypos)
+bool GetNextPosition(int& xpos, int& ypos)
 {
     //Randomly choose a new x and y coordinate to set as the new position.
     incr++;
@@ -118,22 +118,31 @@ void GetNextPosition(int& xpos, int& ypos)
 /// This method sets the starting location of the maze.
 /// </summary>
 /// <param name="xpos">The value used to set the x position.</param>
-/// <param name="ypos">The value used to set the y posiiton.</param>
-void SetStart(int xpos, int ypos)
+bool SetStart(int xpos, int ypos)
 {
-    startX = xpos;
-    startY = ypos;
-    //Also set the current position, since we all start at the beginning
-    //location.
-    currentX = xpos;
-    currentY = ypos;
+    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight)
+    {
+        return false;
+
+    }
+    else
+    {
+        startX = xpos;
+        startY = ypos;
+        //Also set the current position, since we all start at the beginning
+        //location.
+        currentX = xpos;
+        currentY = ypos;
+        return true;
+    }
+    
 }
 /// <summary>
 /// Access the start positions and place their values into the reference parameters.
 /// </summary>
 /// <param name="xpos">The reference variable that will hold the x position.</param>
 /// <param name="ypos">The reference variable that will hold the y position.</param>
-void GetStart(int& xpos, int& ypos)
+bool GetStart(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
     if (startX < 0 || startY < 0 || startX >= mazeWidth || startY >= mazeHeight || startX == NULL || startY == NULL)
@@ -155,17 +164,26 @@ void GetStart(int& xpos, int& ypos)
 /// </summary>
 /// <param name="xpos">The new x position of the end location.</param>
 /// <param name="ypos">The new y positoin of the end location.</param>
-void SetEnd(int xpos, int ypos)
+bool SetEnd(int xpos, int ypos)
 {
-    endX = xpos;
-    endY = ypos;
+    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight )
+    {
+        return false;
+    }
+    else
+    {
+        endX = xpos;
+        endY = ypos;
+        return true;
+    }
+    
 }
 /// <summary>
 /// Access the end positions and place their values into the reference parameters.
 /// </summary>
 /// <param name="xpos">The reference variable that will hold the x position.</param>
 /// <param name="ypos">The reference variable that will hold the y position.</param>
-void GetEnd(int& xpos, int& ypos)
+bool GetEnd(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
     if (endX < 0 || endY < 0 || endX >= mazeWidth || endY >= mazeHeight || endX == NULL || endY == NULL)

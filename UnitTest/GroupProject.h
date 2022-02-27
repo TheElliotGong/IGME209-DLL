@@ -46,12 +46,12 @@ GROUPPROJECT_API bool SetMaze(const int** data, int width, int height);
 //Declare GetMaze function.
 GROUPPROJECT_API int** GetMaze(int& width, int& height);
 //Declare GetNextPosition function.
-GROUPPROJECT_API void GetNextPosition(int& xpos, int& ypos);
+GROUPPROJECT_API bool GetNextPosition(int& xpos, int& ypos);
 //Declare SetStart function.
-GROUPPROJECT_API void SetStart(int xpos, int ypos);
+GROUPPROJECT_API bool SetStart(int xpos, int ypos);
 //Declare GetStart function.
-GROUPPROJECT_API void GetStart(int& xpos, int& ypos);
+GROUPPROJECT_API bool GetStart(int& xpos, int& ypos);
 //Declare SetEnd function.
-GROUPPROJECT_API void SetEnd(int xpos, int ypos);
+GROUPPROJECT_API bool SetEnd(int xpos, int ypos);
 //Declare GetEnd function.
-GROUPPROJECT_API void GetEnd(int& xpos, int& ypos);
+GROUPPROJECT_API bool GetEnd(int& xpos, int& ypos);
