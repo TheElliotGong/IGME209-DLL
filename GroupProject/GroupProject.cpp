@@ -120,10 +120,9 @@ bool GetNextPosition(int& xpos, int& ypos)
 /// <param name="xpos">The value used to set the x position.</param>
 bool SetStart(int xpos, int ypos)
 {
-    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight)
+    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight || xpos == NULL || ypos == NULL)
     {
         return false;
-
     }
     else
     {
@@ -147,9 +146,7 @@ bool GetStart(int& xpos, int& ypos)
     //Check if positions are within maze bounds and aren't null.
     if (startX < 0 || startY < 0 || startX >= mazeWidth || startY >= mazeHeight || startX == NULL || startY == NULL)
     {
-        //Set reference variable values to =1.
-        xpos = -1;
-        ypos = -1;
+        return false;
     }
     //Otherwise, set reference variable values equal to those of the 
     //stored end position variables in the dll.
@@ -157,6 +154,7 @@ bool GetStart(int& xpos, int& ypos)
     {
         xpos = startX;
         ypos = startY;
+        return true;
     }
 }
 /// <summary>
@@ -166,7 +164,7 @@ bool GetStart(int& xpos, int& ypos)
 /// <param name="ypos">The new y positoin of the end location.</param>
 bool SetEnd(int xpos, int ypos)
 {
-    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight )
+    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight || xpos == NULL || ypos == NULL)
     {
         return false;
     }
@@ -189,8 +187,7 @@ bool GetEnd(int& xpos, int& ypos)
     if (endX < 0 || endY < 0 || endX >= mazeWidth || endY >= mazeHeight || endX == NULL || endY == NULL)
     {
         //Set reference variable values to =1.
-        xpos = -1;
-        ypos = -1;
+        return false;
     }
     //Otherwise, set reference variable values equal to those of the 
     //stored end position variables in the dll.
@@ -198,6 +195,7 @@ bool GetEnd(int& xpos, int& ypos)
     {
         xpos = endX;
         ypos = endY;
+        return true;
     }
 }
 
