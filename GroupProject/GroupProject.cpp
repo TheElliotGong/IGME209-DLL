@@ -133,6 +133,11 @@ bool GetNextPosition(int& xpos, int& ypos)
     if (incr > 9)
     {
         incr = -1;
+        return false;
+    }
+    else
+    {
+        return true;
     }
 }
 /// <summary>
@@ -222,6 +227,7 @@ bool GetEnd(int& xpos, int& ypos)
 
 bool Restart()
 {
+    //Reassign the current locations to the start location.
     currentX = startX;
     currentY = startY;
 
