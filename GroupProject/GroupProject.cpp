@@ -68,7 +68,28 @@ bool SetMaze(const int** data, int width, int height)
                 mazeData[i][j] = data[i][j];
             }
         }
-        return true;
+
+        int correct = width * height;
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                if (mazeData[i][j] == data[i][j])
+                {
+                    correct--;
+                }
+            }
+        }
+
+        if (correct == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
 }
@@ -195,6 +216,22 @@ bool GetEnd(int& xpos, int& ypos)
     {
         xpos = endX;
         ypos = endY;
+        return true;
+    }
+}
+
+bool Restart()
+{
+    currentX = startX;
+    currentY = startY;
+
+    if (currentX < 0 || currentY < 0 || currentX >= mazeWidth || currentY >= mazeHeight || currentX == NULL || currentY == NULL)
+    {
+        //Set reference variable values to =1.
+        return false;
+    }
+    else
+    {
         return true;
     }
 }
