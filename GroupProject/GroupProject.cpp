@@ -146,7 +146,7 @@ bool GetNextPosition(int& xpos, int& ypos)
 /// <param name="xpos">The value used to set the x position.</param>
 bool SetStart(int xpos, int ypos)
 {
-    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight || xpos == NULL || ypos == NULL)
+    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight)
     {
         return false;
     }
@@ -158,7 +158,14 @@ bool SetStart(int xpos, int ypos)
         //location.
         currentX = xpos;
         currentY = ypos;
-        return true;
+        if (currentX == xpos && currentY == ypos)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
 }
@@ -170,7 +177,7 @@ bool SetStart(int xpos, int ypos)
 bool GetStart(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (startX < 0 || startY < 0 || startX >= mazeWidth || startY >= mazeHeight || startX == NULL || startY == NULL)
+    if (startX < 0 || startY < 0 || startX >= mazeWidth || startY >= mazeHeight)
     {
         return false;
     }
@@ -190,7 +197,7 @@ bool GetStart(int& xpos, int& ypos)
 /// <param name="ypos">The new y positoin of the end location.</param>
 bool SetEnd(int xpos, int ypos)
 {
-    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight || xpos == NULL || ypos == NULL)
+    if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight)
     {
         return false;
     }
@@ -198,7 +205,15 @@ bool SetEnd(int xpos, int ypos)
     {
         endX = xpos;
         endY = ypos;
-        return true;
+
+        if (endX == xpos && endY == ypos)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
 }
@@ -210,7 +225,7 @@ bool SetEnd(int xpos, int ypos)
 bool GetEnd(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (endX < 0 || endY < 0 || endX >= mazeWidth || endY >= mazeHeight || endX == NULL || endY == NULL)
+    if (endX < 0 || endY < 0 || endX >= mazeWidth || endY >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;
@@ -231,7 +246,7 @@ bool Restart()
     currentX = startX;
     currentY = startY;
 
-    if (currentX < 0 || currentY < 0 || currentX >= mazeWidth || currentY >= mazeHeight || currentX == NULL || currentY == NULL)
+    if (currentX < 0 || currentY < 0 || currentX >= mazeWidth || currentY >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;

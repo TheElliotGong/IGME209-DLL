@@ -57,30 +57,10 @@ namespace UnitTest
 				}
 			}
 			//Pass in the 2d array into the set maze function.
-			SetMaze((const int**)test, 3, 4);
-			//Declare some variables to check to see if the local 2d array and the 2d array
-			//stored in the dll are equal.
-			bool notEqual = true;
-			int correct = 0;
-			//Loop through the local 2d array and the dll array variable and 
-			//check if they're equal.
-			for (int i = 0; i < 3; i++)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					if (mazeData[i][j] == test[i][j])
-					{
-						correct++;
-					}
-				}
-			}
-			//If all elements in both arrays are equal, set the local bool variable to false.
-			if (correct == 12)
-			{
-				notEqual = false;
-			}
+			bool correct = SetMaze((const int**)test, 3, 4);
+
 			//Check if the set maze function worked.
-			Assert::AreEqual(notEqual, false);
+			Assert::AreEqual(correct, true);
 		}
 		/// <summary>
 		/// Test the GetMaze function.
@@ -139,13 +119,30 @@ namespace UnitTest
 		/// </summary>
 		TEST_METHOD(SetStartTest)
 		{
+			//Create a multidimensional array of pointers.
+			int** test = new int* [3];
+			for (int i = 0; i < 3; i++)
+			{
+				test[i] = new int[4];
+			}
+			//Set the element values for the local 2d array.
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					test[i][j] = 1;
+				}
+			}
+			//Pass in the 2d array into the set maze function.
+			SetMaze((const int**)test, 3, 4);
+
 			//Create some local variables to use for the SetStart function and see
 			//if those values are passed into the dll counterparts.
 			int X = 2;
 			int Y = 3;
-			SetStart(X, Y);
-			Assert::AreEqual(startX, X);
-			Assert::AreEqual(startY, Y);
+			bool correct = SetStart(X, Y);
+
+			Assert::AreEqual(correct, true);
 		}
 
 		/// <summary>
@@ -153,13 +150,30 @@ namespace UnitTest
 		/// </summary>
 		TEST_METHOD(SetEndTest)
 		{
+			//Create a multidimensional array of pointers.
+			int** test = new int* [3];
+			for (int i = 0; i < 3; i++)
+			{
+				test[i] = new int[4];
+			}
+			//Set the element values for the local 2d array.
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					test[i][j] = 1;
+				}
+			}
+			//Pass in the 2d array into the set maze function.
+			SetMaze((const int**)test, 3, 4);
+
 			//Create some local variables to use for the SetEnd function and see
 			//if those values are passed into the dll counterparts.
-			int X = 2;
-			int Y = 3;
-			SetEnd(X, Y);
-			Assert::AreEqual(endX, X);
-			Assert::AreEqual(endY, Y);
+			int X = 1;
+			int Y = 2;
+			bool correct = SetEnd(X, Y);
+
+			Assert::AreEqual(correct, true);
 		}
 
 		/// <summary>
@@ -176,10 +190,9 @@ namespace UnitTest
 			//Set the start positions and then call several assert tests to see
             //if the variables in the unit test and dll are equal.
 			SetStart(4, 4);
-			GetStart(x, y);
+			bool correct = GetStart(x, y);
 
-			Assert::AreNotEqual(4, x);
-			Assert::AreNotEqual(4, y);
+			Assert::AreEqual(correct, true);
 		}
 
 		/// <summary>
@@ -197,12 +210,9 @@ namespace UnitTest
 			//Set the end positions and then call several assert tests to see
 			//if the variables in the unit test and dll are equal.
 			SetEnd(2, 2);
-			GetEnd(x, y);
+			bool correct = GetEnd(x, y);
 
-			Assert::AreEqual(2, x);
-			Assert::AreEqual(2, y);
+			Assert::AreEqual(correct, true);
 		}
-
-
 	};
 }
