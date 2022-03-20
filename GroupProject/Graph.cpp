@@ -1,10 +1,14 @@
 #include "pch.h"
 #include "Graph.h"
 
-Graph::Graph(int width, int height, vector<vector<Vertex>> adjList, int** adjMatrix)
+class Graph
 {
-	this->width = width;
-	this->height = height;
-	this->adjList = adjList;
-	this->adjMatrix = adjMatrix;
-}
+public:
+		vector<vector<Vertex>> adjList;
+		vector<Vertex> vertices;
+
+		Graph(int width, int height, int** mazeData)
+		{
+
+		}
+};
