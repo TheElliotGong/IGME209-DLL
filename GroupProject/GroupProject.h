@@ -9,6 +9,9 @@
 #else
 #define GROUPPROJECT_API __declspec(dllimport)
 #endif
+#include "Vertex.h"
+#include <vector>
+
 /*Authors: Elliot Gong and Michael Xie
 * Purpose: Declare functions and variables to be used.
 * Restrictions: Must declare the required functions.
@@ -38,7 +41,8 @@ GROUPPROJECT_API int currentX;
 GROUPPROJECT_API int currentY;
 GROUPPROJECT_API int endX;
 GROUPPROJECT_API int endY;
-
+GROUPPROJECT_API std::vector<Vertex> openList;
+GROUPPROJECT_API std::vector<Vertex> closedList;
 //Declare GetTeam function.
 GROUPPROJECT_API char* GetTeam();
 //Declare SetMaze function.

@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "GroupProject.h"
+
 /*Authors: Elliot Gong and Michael Xie
 * Purpose: Instantiate functions and use the variables declared in the header.
 * Restrictions: Must have functions store and tweak data for the maze.

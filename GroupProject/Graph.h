@@ -7,16 +7,13 @@ using namespace std;
 class Graph
 {
 	public:
-		Graph(int width, int height, vector<vector<Vertex*>> adjList, int** adjMatrix);
-    private:
+		Graph(int width, int height, vector<vector<Vertex>> adjList, int** adjMatrix);
 		int width; 
 		int height;
 		//Instantiate the adjacency list
-		vector<vector<Vertex*>> adjList;
+		vector<vector<Vertex>> adjList;
 		//Instantiate the 2d matrix
 		int** adjMatrix;
-		queue<Vertex> openList;
-		vector<Vertex> closedList;
 		
 		
 };
