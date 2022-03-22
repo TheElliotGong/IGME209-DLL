@@ -9,6 +9,8 @@
 #else
 #define GROUPPROJECT_API __declspec(dllimport)
 #endif
+
+
 /*Authors: Elliot Gong and Michael Xie
 * Purpose: Declare functions and variables to be used.
 * Restrictions: Must declare the required functions.

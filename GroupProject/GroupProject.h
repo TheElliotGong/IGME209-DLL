@@ -10,6 +10,7 @@
 #define GROUPPROJECT_API __declspec(dllimport)
 #endif
 #include "Vertex.h"
+#include "Graph.h"
 #include <vector>
 
 /*Authors: Elliot Gong and Michael Xie
@@ -35,12 +36,11 @@ GROUPPROJECT_API int** mazeData;
 //the start, end, and current positions.
 GROUPPROJECT_API int mazeWidth;
 GROUPPROJECT_API int mazeHeight;
-GROUPPROJECT_API int startX;
-GROUPPROJECT_API int startY;
-GROUPPROJECT_API int currentX;
-GROUPPROJECT_API int currentY;
-GROUPPROJECT_API int endX;
-GROUPPROJECT_API int endY;
+//Declare some Vertices to represent the start, current, and goal positions/vertices in a maze/graphs.
+GROUPPROJECT_API Vertex start;
+GROUPPROJECT_API Vertex current;
+GROUPPROJECT_API Vertex goal;
+//Declare some vectors to hold "open" and "closed" vertices.
 GROUPPROJECT_API std::vector<Vertex> openList;
 GROUPPROJECT_API std::vector<Vertex> closedList;
 //Declare GetTeam function.
