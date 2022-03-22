@@ -22,12 +22,6 @@ GROUPPROJECT_API int fnGroupProject(void)
 //The const char pointer holding our names.
 const char* names = "Elliot Gong & Michael Xie";
 
-//Variables to hold possible x and y coordinates as well as the index variable
-//used to access said coordinates.
-int xLocations[11] = {4, 2, 1, 3, 6, 0, 11, 9, 7, 5};
-int yLocations[11] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-int incr = -1;
-
 Graph maze;
 
 /// <summary>
@@ -74,7 +68,9 @@ bool SetMaze(const int** data, int width, int height)
         }
         //Save the dimensions of the 2D maze/array.
         int correct = width * height;
+        //Instantiate the global Graph object.
         maze = Graph(width, height, mazeData);
+        
         //Check if the DLL maze data and the parameter maze data are identical.
         for (int i = 0; i < width; i++)
         {
@@ -130,24 +126,29 @@ int** GetMaze(int& width, int& height)
 /// <param name="ypos">The reference variable to hold the destination y position.</param>
 bool GetNextPosition(int& xpos, int& ypos)
 {
-    //Randomly choose a new x and y coordinate to set as the new position.
-    incr++;
-    xpos = xLocations[incr];
-    ypos = yLocations[incr];
-    //Set the value for the new current position.
-    current.xPos = xpos;
-    current.yPos = ypos;
-    //Reset the increment variable for the next function call.
-    if (incr > 9)
+    vector<Vertex> nextSteps;
+
+    for (int i = 0; i < maze.vertices.size(); i++)
     {
-        incr = -1;
-        return false;
+        if ((maze.vertices[i].xPos == maze.current.xPos) && (maze.vertices[i].yPos = maze.current.yPos))
+        {
+            for (int j = 0; j < maze.adjList[i].size(); j++)
+            {
+                nextSteps.push_back(maze.adjList[i][j]);
+            }
+        }
     }
-    else
+
+    if (nextSteps.size() != 0)
     {
         return true;
     }
+    else
+    {
+        return false;
+    }
 }
+
 /// <summary>
 /// This method sets the starting location of the maze.
 /// </summary>
@@ -160,11 +161,11 @@ bool SetStart(int xpos, int ypos)
     }
     else
     {
-        start = Vertex(xpos, ypos);
-        //Also set the current position, since we all start at the beginning
-        //location.
-        current = Vertex(xpos, ypos);
-        if (current.xPos == xpos && current.yPos == ypos)
+        //Instantiate the Start and Current vertices.
+        maze.start = Vertex(xpos, ypos);
+        maze.current = Vertex(xpos, ypos);
+        //Check if the 2 vertices are the same at the beginning.
+        if (maze.current.xPos == xpos && maze.current.yPos == ypos)
         {
             return true;
         }
@@ -183,7 +184,7 @@ bool SetStart(int xpos, int ypos)
 bool GetStart(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (start.xPos < 0 || start.yPos < 0 || start.xPos >= mazeWidth || start.yPos >= mazeHeight )
+    if (maze.start.xPos < 0 || maze.start.yPos < 0 || maze.start.xPos >= mazeWidth || maze.start.yPos >= mazeHeight )
     {
         return false;
     }
@@ -191,8 +192,8 @@ bool GetStart(int& xpos, int& ypos)
     //stored end position variables in the dll.
     else
     {
-        xpos = start.xPos;
-        ypos = start.yPos;
+        xpos = maze.start.xPos;
+        ypos = maze.start.yPos;
         return true;
     }
 }
@@ -209,8 +210,8 @@ bool SetEnd(int xpos, int ypos)
     }
     else
     {
-        goal = Vertex(xpos, ypos);
-        if (goal.xPos == xpos && goal.yPos == ypos)
+        maze.end = Vertex(xpos, ypos);
+        if (maze.end.xPos == xpos && maze.end.yPos == ypos)
         {
             return true;
         }
@@ -229,7 +230,7 @@ bool SetEnd(int xpos, int ypos)
 bool GetEnd(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (start.xPos < 0 || start.yPos < 0 || goal.xPos >= mazeWidth || goal.yPos >= mazeHeight)
+    if (maze.start.xPos < 0 || maze.start.yPos < 0 || maze.end.xPos >= mazeWidth || maze.end.yPos >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;
@@ -238,8 +239,8 @@ bool GetEnd(int& xpos, int& ypos)
     //stored end position variables in the dll.
     else
     {
-        xpos = goal.xPos;
-        ypos = goal.yPos;
+        xpos = maze.end.xPos;
+        ypos = maze.end.yPos;
         return true;
     }
 }
@@ -247,10 +248,10 @@ bool GetEnd(int& xpos, int& ypos)
 bool Restart()
 {
     //Reassign the current locations to the start location.
-    current.xPos = start.xPos;
-    current.yPos = start.yPos;
+    maze.current.xPos = maze.start.xPos;
+    maze.current.yPos = maze.start.yPos;
 
-    if (current.xPos < 0 || current.yPos < 0 || current.yPos >= mazeWidth || current.yPos >= mazeHeight)
+    if (maze.current.xPos < 0 || maze.current.yPos < 0 || maze.current.yPos >= mazeWidth || maze.current.yPos >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;

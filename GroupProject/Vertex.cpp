@@ -5,7 +5,17 @@ Vertex::Vertex(int x, int y)
 {
 	xPos = x;
 	yPos = y;
-	heuristic = 0;
-	lowestCost = 0;
+	hCost = 0;
+	gCost = 0;
+	fCost = 0;
+	visited = false;
+}
+Vertex::Vertex()
+{
+	xPos = 0;
+	yPos = 0;
+	hCost = 0;
+	gCost = 0;
+	fCost = 0;
 	visited = false;
 }

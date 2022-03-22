@@ -34,12 +34,6 @@ GROUPPROJECT_API int** mazeData;
 //the start, end, and current positions.
 GROUPPROJECT_API int mazeWidth;
 GROUPPROJECT_API int mazeHeight;
-GROUPPROJECT_API int startX;
-GROUPPROJECT_API int startY;
-GROUPPROJECT_API int currentX;
-GROUPPROJECT_API int currentY;
-GROUPPROJECT_API int endX;
-GROUPPROJECT_API int endY;
 
 //Declare GetTeam function.
 GROUPPROJECT_API char* GetTeam();

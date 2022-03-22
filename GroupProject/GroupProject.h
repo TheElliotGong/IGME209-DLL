@@ -26,23 +26,14 @@ public:
 };
 
 extern GROUPPROJECT_API int nGroupProject;
-
 GROUPPROJECT_API int fnGroupProject(void);
-
-
 //Created a double pointer used to hold the maze data via a 2d array.
 GROUPPROJECT_API int** mazeData;
 //These int variables hold the maze's width and height, as well as
 //the start, end, and current positions.
 GROUPPROJECT_API int mazeWidth;
 GROUPPROJECT_API int mazeHeight;
-//Declare some Vertices to represent the start, current, and goal positions/vertices in a maze/graphs.
-GROUPPROJECT_API Vertex start;
-GROUPPROJECT_API Vertex current;
-GROUPPROJECT_API Vertex goal;
-//Declare some vectors to hold "open" and "closed" vertices.
-GROUPPROJECT_API std::vector<Vertex> openList;
-GROUPPROJECT_API std::vector<Vertex> closedList;
+
 //Declare GetTeam function.
 GROUPPROJECT_API char* GetTeam();
 //Declare SetMaze function.

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Graph.h"
-
+#include "Vertex.h"
 Graph::Graph(int width, int height, int** mazeData)
 {
 	//Go through the 2D array that represents a maze, where '0's represent
@@ -48,4 +48,11 @@ Graph::Graph(int width, int height, int** mazeData)
 			}
 		}
 	}
+
+	
+}
+
+void Graph::AStar()
+{
+
 }
