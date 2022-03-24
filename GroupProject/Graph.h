@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <queue>
 #include "Vertex.h"
 using namespace std;
 
@@ -17,5 +16,6 @@ class Graph
 		Vertex end;
 		void AStar();
 		Graph(int width, int height, int** mazeData);
+
 };
 

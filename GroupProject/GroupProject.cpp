@@ -126,8 +126,9 @@ int** GetMaze(int& width, int& height)
 /// <param name="ypos">The reference variable to hold the destination y position.</param>
 bool GetNextPosition(int& xpos, int& ypos)
 {
+    //Create a vector to hold the neighbor vertices of the current vertex.
     vector<Vertex> nextSteps;
-
+    //Find the current vertex, and access its neighbors via the adjacency list.
     for (int i = 0; i < maze.vertices.size(); i++)
     {
         if ((maze.vertices[i].xPos == maze.current.xPos) && (maze.vertices[i].yPos = maze.current.yPos))
@@ -138,9 +139,14 @@ bool GetNextPosition(int& xpos, int& ypos)
             }
         }
     }
-
+    //Check to see if the current vertex has any neighbors.s
     if (nextSteps.size() != 0)
     {
+        int highestCost = 100000;
+        for (int i = 0; i < nextSteps.size(); i++)
+        {
+
+        }
         return true;
     }
     else

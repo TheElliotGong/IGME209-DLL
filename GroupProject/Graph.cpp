@@ -54,5 +54,11 @@ Graph::Graph(int width, int height, int** mazeData)
 
 void Graph::AStar()
 {
+	//Loop through vertices, find current vertex and add it to the closed list.
+	//Then, find the current vertex's neighbors, and add them to the open list.
 
+
+
+
+ 
 }
