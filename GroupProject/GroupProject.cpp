@@ -127,11 +127,11 @@ int** GetMaze(int& width, int& height)
 bool GetNextPosition(int& xpos, int& ypos)
 {
     //Create a vector to hold the neighbor vertices of the current vertex.
-    vector<Vertex> nextSteps;
+    vector<Vertex*> nextSteps;
     //Find the current vertex, and access its neighbors via the adjacency list.
     for (int i = 0; i < maze.vertices.size(); i++)
     {
-        if ((maze.vertices[i].xPos == maze.current.xPos) && (maze.vertices[i].yPos = maze.current.yPos))
+        if ((maze.vertices[i]->xPos == maze.current->xPos) && (maze.vertices[i]->yPos = maze.current->yPos))
         {
             for (int j = 0; j < maze.adjList[i].size(); j++)
             {
@@ -168,10 +168,10 @@ bool SetStart(int xpos, int ypos)
     else
     {
         //Instantiate the Start and Current vertices.
-        maze.start = Vertex(xpos, ypos);
-        maze.current = Vertex(xpos, ypos);
+        maze.start = new Vertex(xpos, ypos);
+        maze.current = new Vertex(xpos, ypos);
         //Check if the 2 vertices are the same at the beginning.
-        if (maze.current.xPos == xpos && maze.current.yPos == ypos)
+        if (maze.current->xPos == xpos && maze.current->yPos == ypos)
         {
             return true;
         }
@@ -190,7 +190,7 @@ bool SetStart(int xpos, int ypos)
 bool GetStart(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (maze.start.xPos < 0 || maze.start.yPos < 0 || maze.start.xPos >= mazeWidth || maze.start.yPos >= mazeHeight )
+    if (maze.start->xPos < 0 || maze.start->yPos < 0 || maze.start->xPos >= mazeWidth || maze.start->yPos >= mazeHeight )
     {
         return false;
     }
@@ -198,8 +198,8 @@ bool GetStart(int& xpos, int& ypos)
     //stored end position variables in the dll.
     else
     {
-        xpos = maze.start.xPos;
-        ypos = maze.start.yPos;
+        xpos = maze.start->xPos;
+        ypos = maze.start->yPos;
         return true;
     }
 }
@@ -216,8 +216,15 @@ bool SetEnd(int xpos, int ypos)
     }
     else
     {
-        maze.end = Vertex(xpos, ypos);
-        if (maze.end.xPos == xpos && maze.end.yPos == ypos)
+        //Set the position of the end vertex.
+        maze.end = new Vertex(xpos, ypos);
+        //Calculate the h costs of all other vertices in the maze.
+        for (Vertex* node : maze.vertices)
+        {
+            node->hCost = abs(maze.end->xPos - node->xPos) + abs(maze.end->yPos - node->yPos);
+        }
+        
+        if (maze.end->xPos == xpos && maze.end->yPos == ypos)
         {
             return true;
         }
@@ -236,7 +243,7 @@ bool SetEnd(int xpos, int ypos)
 bool GetEnd(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (maze.start.xPos < 0 || maze.start.yPos < 0 || maze.end.xPos >= mazeWidth || maze.end.yPos >= mazeHeight)
+    if (maze.start->xPos < 0 || maze.start->yPos < 0 || maze.end->xPos >= mazeWidth || maze.end->yPos >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;
@@ -245,8 +252,8 @@ bool GetEnd(int& xpos, int& ypos)
     //stored end position variables in the dll.
     else
     {
-        xpos = maze.end.xPos;
-        ypos = maze.end.yPos;
+        xpos = maze.end->xPos;
+        ypos = maze.end->yPos;
         return true;
     }
 }
@@ -254,10 +261,10 @@ bool GetEnd(int& xpos, int& ypos)
 bool Restart()
 {
     //Reassign the current locations to the start location.
-    maze.current.xPos = maze.start.xPos;
-    maze.current.yPos = maze.start.yPos;
+    maze.current->xPos = maze.start->xPos;
+    maze.current->yPos = maze.start->yPos;
 
-    if (maze.current.xPos < 0 || maze.current.yPos < 0 || maze.current.yPos >= mazeWidth || maze.current.yPos >= mazeHeight)
+    if (maze.current->xPos < 0 || maze.current->yPos < 0 || maze.current->yPos >= mazeWidth || maze.current->yPos >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;
