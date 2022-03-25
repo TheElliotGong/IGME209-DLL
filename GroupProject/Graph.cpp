@@ -54,11 +54,80 @@ Graph::Graph(int width, int height, int** mazeData)
 
 void Graph::AStar()
 {
-	//Loop through vertices, find current vertex and add it to the closed list.
-	//Then, find the current vertex's neighbors, and add them to the open list.
+	for (int i = 0; i < vertices.size(); i++)
+	{
+		if ((vertices[i].xPos == start.xPos) && (vertices[i].yPos == start.yPos))
+		{
+			openList.push_back(vertices[i]);
+		}
+	}
 
+	current.fCost = 1000;
+	int pointer = 0;
 
+	do
+	{
+		for (int i = (openList.size() - 1); i > -1; i--)
+		{
+			if (openList[i].fCost < current.fCost)
+			{
+				current = openList[i];
+				pointer = i;
+			}
+		}
 
+		closedList.push_back(current);
+		openList.erase(openList.begin() + pointer);
 
- 
+		for (int i = 0; i < closedList.size(); i++)
+		{
+			if ((closedList[i].xPos == end.xPos) && (closedList[i].yPos == end.yPos))
+			{
+				break;
+			}
+		}
+
+		for (int i = 0; i < vertices.size(); i++)
+		{
+			if ((vertices[i].xPos == current.xPos) && (vertices[i].yPos == current.yPos))
+			{
+				for (int j = 0; j < adjList[i].size(); j++)
+				{
+					for (int k = (closedList.size() - 1); k > -1; k--)
+					{
+						if ((adjList[i][j].xPos == closedList[k].xPos) && (adjList[i][j].yPos == closedList[k].yPos))
+						{
+							if (closedList[k].gCost > (current.gCost + 1))
+							{
+								closedList.erase(closedList.begin() + k);
+							}
+						}
+						else
+						{
+							for (int p = 0; p < openList.size(); p++)
+							{
+								if ((adjList[i][j].xPos == openList[p].xPos) && (adjList[i][j].yPos == openList[p].yPos))
+								{
+									if (openList[p].gCost > (current.gCost + 1))
+									{
+										openList[p].gCost = (current.gCost + 1);
+										openList[p].fCost = openList[p].gCost + openList[p].hCost;
+									}
+								}
+								else
+								{
+									adjList[i][j].hCost = abs(adjList[i][j].xPos - end.xPos) + abs(adjList[i][j].yPos - end.yPos);
+									adjList[i][j].gCost = (current.gCost + 1);
+									adjList[i][j].fCost = adjList[i][j].gCost + adjList[i][j].hCost;
+
+									openList.push_back(adjList[i][j]);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+	} while (openList.size() != 0);
 }
