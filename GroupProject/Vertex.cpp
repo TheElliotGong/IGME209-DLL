@@ -8,7 +8,7 @@ Vertex::Vertex(int x, int y)
 	hCost = 0;
 	gCost = 0;
 	fCost = 0;
-	visited = false;
+	parent = nullptr;
 }
 Vertex::Vertex()
 {
@@ -17,5 +17,5 @@ Vertex::Vertex()
 	hCost = 0;
 	gCost = 0;
 	fCost = 0;
-	visited = false;
+	parent = nullptr;
 }

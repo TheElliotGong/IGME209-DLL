@@ -7,7 +7,8 @@ class Vertex
 		int hCost;
 		int fCost;
 		int gCost;
-		bool visited;
+		Vertex* parent;
+
 		Vertex();
 		//Parameterized Constructor
 		Vertex(int xPos, int yPos);

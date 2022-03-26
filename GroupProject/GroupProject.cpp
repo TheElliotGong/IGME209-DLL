@@ -70,7 +70,6 @@ bool SetMaze(const int** data, int width, int height)
         int correct = width * height;
         //Instantiate the global Graph object.
         maze = Graph(width, height, mazeData);
-        
         //Check if the DLL maze data and the parameter maze data are identical.
         for (int i = 0; i < width; i++)
         {
@@ -82,8 +81,6 @@ bool SetMaze(const int** data, int width, int height)
                 }
             }
         }
-
-
         //Return true if maze data in DLL is valid, otherwise return false.
         if (correct == 0)
         {
@@ -168,8 +165,15 @@ bool SetStart(int xpos, int ypos)
     else
     {
         //Instantiate the Start and Current vertices.
-        maze.start = new Vertex(xpos, ypos);
-        maze.current = new Vertex(xpos, ypos);
+        //Find end vertex within graph's vector.
+        for (Vertex* element : maze.vertices)
+        {
+            if (element->xPos == xpos && element->yPos == ypos)
+            {
+                maze.start = element;
+                
+            }
+        }
         //Check if the 2 vertices are the same at the beginning.
         if (maze.current->xPos == xpos && maze.current->yPos == ypos)
         {
@@ -216,9 +220,16 @@ bool SetEnd(int xpos, int ypos)
     }
     else
     {
-        //Set the position of the end vertex.
-        maze.end = new Vertex(xpos, ypos);
-        //Calculate the h costs of all other vertices in the maze.
+        //Find end vertex within graph's vector.
+        for (Vertex* element : maze.vertices)
+        {
+            if (element->xPos == xpos && element->yPos == ypos)
+            {
+                maze.end = element;
+            }
+        }
+        //Calculate the h costs of all vertices in the maze.
+        //h cost is distance between a vertex and the end vertex.
         for (Vertex* node : maze.vertices)
         {
             node->hCost = abs(maze.end->xPos - node->xPos) + abs(maze.end->yPos - node->yPos);

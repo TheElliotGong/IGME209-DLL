@@ -49,99 +49,34 @@ Graph::Graph(int width, int height, int** mazeData)
 			}
 		}
 	}
-
+	start = nullptr;
+	end = nullptr;
+	current = nullptr;
 	
 }
 
 void Graph::AStar()
 {
+	
+
 	//First, add the current vertex to the closed list.
 	//Note, at the beginning, the current vertex is also the start vertex.
-	current->visited = false;
-	for (int i = 0; i < vertices.size(); i++)
+	openList.push(start);
+	current = start;
+	//Set the current vertex's fcost.
+	
+	int pointer = 0;
+	//Then, calculate the shortest path from start vertex to end vertex.
+	while (openList.size() > 0)
 	{
-		if ((vertices[i]->xPos == current->xPos) && (vertices[i]->yPos == current->yPos))
+		for (Vertex* vertex : openList)
 		{
-			//Then, add neighbors of start vertex to the open list.
-			closedList.push_back(vertices[i]);
-			for (Vertex* neighbor : adjList[i])
+			if (vertex->fCost < current->fCost)
 			{
-				openList.push_back(neighbor);
+				current = vertex;
+				
 			}
 		}
 	}
-	//Set the current vertex's fcost.
-	current->fCost = 1000;
-	int pointer = 0;
-	//Then, calculate the shortest path from start vertex to end vertex.
-	do
-	{
-		//Loop through the open list, which contains the current vertice's neighbors, 
-		//and find the neighbor with the lowest score.
-		for (int i = (openList.size() - 1); i > -1; i--)
-		{
-			//Make the neighbor with the lowest score the new current vertex.
-			if (openList[i]->fCost < current->fCost)
-			{
-				current = openList[i];
-				pointer = i;
-			}
-		}
-		//Add new current vertex to closed list and empty out the open list.
-		closedList.push_back(current);
-		openList.erase(openList.begin() + pointer);
-		//If we've reached the end, end this loop.
-		for (int i = 0; i < closedList.size(); i++)
-		{
-			if ((closedList[i]->xPos == end->xPos) && (closedList[i]->yPos == end->yPos))
-			{
-				break;
-			}
-		}
-		//Then check each of the neighbors of the new current vertex.
-		for (int i = 0; i < vertices.size(); i++)
-		{
-			if ((vertices[i]->xPos == current->xPos) && (vertices[i]->yPos == current->yPos))
-			{
-				for (int j = 0; j < adjList[i].size(); j++)
-				{
-					for (int k = (closedList.size() - 1); k > -1; k--)
-					{
-						//Check if neighbor is in closed list nad 
-						if ((adjList[i][j]->xPos == closedList[k]->xPos) && (adjList[i][j]->yPos == closedList[k]->yPos))
-						{
-							if (closedList[k]->gCost > (current->gCost + 1))
-							{
-								closedList.erase(closedList.begin() + k);
-							}
-						}
-						else
-						{
-							for (int p = 0; p < openList.size(); p++)
-							{
-								//Check if 
-								if ((adjList[i][j]->xPos == openList[p]->xPos) && (adjList[i][j]->yPos == openList[p]->yPos))
-								{
-									if (openList[p]->gCost > (current->gCost + 1))
-									{
-										openList[p]->gCost = (current->gCost + 1);
-										openList[p]->fCost = openList[p]->gCost + openList[p]->hCost;
-									}
-								}
-								else
-								{
-									adjList[i][j]->hCost = abs(adjList[i][j]->xPos - end->xPos) + abs(adjList[i][j]->yPos - end->yPos);
-									adjList[i][j]->gCost = (current->gCost + 1);
-									adjList[i][j]->fCost = adjList[i][j]->gCost + adjList[i][j]->hCost;
-
-									openList.push_back(adjList[i][j]);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-	} while (openList.size() != 0);
 }
+
