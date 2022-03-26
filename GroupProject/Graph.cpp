@@ -25,7 +25,8 @@ Graph::Graph(int width, int height, int** mazeData)
 		adjList[p] = vector<Vertex*>();
 	}
 	//Loop through the 2D array/maze and validate the positions of possible neighbors
-	//of each vertex in the general vector.
+	//of each vertex in the general vector. Then add the neighbors to the corresponding 
+	//vector associated with each vertex via the adjacency list.
 	for (int k = 0; k < adjList.size(); k++)
 	{
 		for (int l = 0; l < vertices.size(); l++)
@@ -54,15 +55,22 @@ Graph::Graph(int width, int height, int** mazeData)
 
 void Graph::AStar()
 {
-	//First, add the start vertex to the open list.
+	//First, add the current vertex to the closed list.
+	//Note, at the beginning, the current vertex is also the start vertex.
+	current->visited = false;
 	for (int i = 0; i < vertices.size(); i++)
 	{
-		if ((vertices[i]->xPos == start->xPos) && (vertices[i]->yPos == start->yPos))
+		if ((vertices[i]->xPos == current->xPos) && (vertices[i]->yPos == current->yPos))
 		{
+			//Then, add neighbors of start vertex to the open list.
 			closedList.push_back(vertices[i]);
+			for (Vertex* neighbor : adjList[i])
+			{
+				openList.push_back(neighbor);
+			}
 		}
 	}
-
+	//Set the current vertex's fcost.
 	current->fCost = 1000;
 	int pointer = 0;
 	//Then, calculate the shortest path from start vertex to end vertex.
@@ -79,10 +87,10 @@ void Graph::AStar()
 				pointer = i;
 			}
 		}
-		//Add current vertex to closed list and empty out the open list.
+		//Add new current vertex to closed list and empty out the open list.
 		closedList.push_back(current);
 		openList.erase(openList.begin() + pointer);
-		//Check if the end vertex has been reached in the closed list.
+		//If we've reached the end, end this loop.
 		for (int i = 0; i < closedList.size(); i++)
 		{
 			if ((closedList[i]->xPos == end->xPos) && (closedList[i]->yPos == end->yPos))
@@ -90,7 +98,7 @@ void Graph::AStar()
 				break;
 			}
 		}
-
+		//Then check each of the neighbors of the new current vertex.
 		for (int i = 0; i < vertices.size(); i++)
 		{
 			if ((vertices[i]->xPos == current->xPos) && (vertices[i]->yPos == current->yPos))
