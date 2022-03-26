@@ -55,28 +55,92 @@ Graph::Graph(int width, int height, int** mazeData)
 	
 }
 
-void Graph::AStar()
+vector<Vertex*> Graph::AStar()
 {
-	
-
 	//First, add the current vertex to the closed list.
 	//Note, at the beginning, the current vertex is also the start vertex.
-	openList.push(start);
+	openList.push_back(start);
 	current = start;
+
 	//Set the current vertex's fcost.
-	
 	int pointer = 0;
+	int i = 0;
+
 	//Then, calculate the shortest path from start vertex to end vertex.
-	while (openList.size() > 0)
+	while (openList.empty() == false)
 	{
+		if (closedList[closedList.size() - 1]->xPos == end->xPos && closedList[closedList.size() - 1]->yPos == end->yPos)
+		{
+			break;
+		}
+
 		for (Vertex* vertex : openList)
 		{
 			if (vertex->fCost < current->fCost)
 			{
 				current = vertex;
-				
+				pointer = i;
+			}
+			i++;
+		}
+
+		openList.erase(openList.begin() + pointer);
+		closedList.push_back(current);
+
+		for (int j = 0; j < vertices.size(); j++)
+		{
+			if (vertices[j]->xPos == current->xPos && vertices[j]->yPos == current->yPos)
+			{
+				for (Vertex* neighbor : adjList[j])
+				{
+					int cost = current->gCost + 1;
+
+					if (FindVertex(openList, neighbor, pointer) == true && neighbor->gCost > cost)
+					{
+						openList.erase(openList.begin() + pointer);
+					}
+					else if (FindVertex(closedList, neighbor, pointer) == true && neighbor->gCost > cost)
+					{
+						closedList.erase(openList.begin() + pointer);
+					}
+					else if(FindVertex(openList, neighbor, pointer) == false && FindVertex(closedList, neighbor, pointer) == false)
+					{
+						neighbor->gCost = cost;
+						neighbor->parent = current;
+						openList.push_back(neighbor);
+					}
+				}
 			}
 		}
 	}
+
+	vector<Vertex*> path;
+	path.push_back(closedList[closedList.size() - 1]);
+
+	while (path[path.size() - 1]->xPos != start->xPos && path[path.size() - 1]->yPos != start->yPos)
+	{
+		path.push_back(path[path.size() - 1]->parent);
+	}
+
+	return path;
 }
+
+
+
+bool Graph::FindVertex(vector<Vertex*> list, Vertex* vertex, int &index)
+{
+	int i = 0;
+	for (Vertex* node : list)
+	{
+		if (node->xPos == vertex->xPos && node->yPos == vertex->yPos)
+		{
+			index = i;
+			return true;
+		}
+		i++;
+	}
+	return false;
+}
+
+
 

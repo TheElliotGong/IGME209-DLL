@@ -22,7 +22,7 @@ GROUPPROJECT_API int fnGroupProject(void)
 //The const char pointer holding our names.
 const char* names = "Elliot Gong & Michael Xie";
 
-Graph maze;
+Graph* maze = nullptr;
 
 /// <summary>
 /// This method returns our group name.
@@ -68,8 +68,6 @@ bool SetMaze(const int** data, int width, int height)
         }
         //Save the dimensions of the 2D maze/array.
         int correct = width * height;
-        //Instantiate the global Graph object.
-        maze = Graph(width, height, mazeData);
         //Check if the DLL maze data and the parameter maze data are identical.
         for (int i = 0; i < width; i++)
         {
@@ -84,7 +82,7 @@ bool SetMaze(const int** data, int width, int height)
         //Return true if maze data in DLL is valid, otherwise return false.
         if (correct == 0)
         {
-            maze = Graph(width, height, mazeData);
+            maze = new Graph(width, height, mazeData);
             return true;
         }
         else
@@ -125,25 +123,18 @@ bool GetNextPosition(int& xpos, int& ypos)
 {
     //Create a vector to hold the neighbor vertices of the current vertex.
     vector<Vertex*> nextSteps;
-    //Find the current vertex, and access its neighbors via the adjacency list.
-    for (int i = 0; i < maze.vertices.size(); i++)
-    {
-        if ((maze.vertices[i]->xPos == maze.current->xPos) && (maze.vertices[i]->yPos = maze.current->yPos))
-        {
-            for (int j = 0; j < maze.adjList[i].size(); j++)
-            {
-                nextSteps.push_back(maze.adjList[i][j]);
-            }
-        }
-    }
-    //Check to see if the current vertex has any neighbors.s
-    if (nextSteps.size() != 0)
-    {
-        int highestCost = 100000;
-        for (int i = 0; i < nextSteps.size(); i++)
-        {
 
-        }
+    if (nextSteps.empty() == true)
+    {
+        nextSteps = maze->AStar();
+    }
+
+    //Check to see if the current vertex has any neighbors.s
+    if (nextSteps.empty() == false)
+    {
+        xpos = nextSteps[nextSteps.size() - 1]->xPos;
+        ypos = nextSteps[nextSteps.size() - 1]->yPos;
+        nextSteps.erase(nextSteps.end() - 1);
         return true;
     }
     else
@@ -166,16 +157,16 @@ bool SetStart(int xpos, int ypos)
     {
         //Instantiate the Start and Current vertices.
         //Find end vertex within graph's vector.
-        for (Vertex* element : maze.vertices)
+        for (Vertex* element : maze->vertices)
         {
             if (element->xPos == xpos && element->yPos == ypos)
             {
-                maze.start = element;
+                maze->start = element;
                 
             }
         }
         //Check if the 2 vertices are the same at the beginning.
-        if (maze.current->xPos == xpos && maze.current->yPos == ypos)
+        if (maze->current->xPos == xpos && maze->current->yPos == ypos)
         {
             return true;
         }
@@ -194,7 +185,7 @@ bool SetStart(int xpos, int ypos)
 bool GetStart(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (maze.start->xPos < 0 || maze.start->yPos < 0 || maze.start->xPos >= mazeWidth || maze.start->yPos >= mazeHeight )
+    if (maze->start->xPos < 0 || maze->start->yPos < 0 || maze->start->xPos >= mazeWidth || maze->start->yPos >= mazeHeight )
     {
         return false;
     }
@@ -202,8 +193,8 @@ bool GetStart(int& xpos, int& ypos)
     //stored end position variables in the dll.
     else
     {
-        xpos = maze.start->xPos;
-        ypos = maze.start->yPos;
+        xpos = maze->start->xPos;
+        ypos = maze->start->yPos;
         return true;
     }
 }
@@ -221,21 +212,21 @@ bool SetEnd(int xpos, int ypos)
     else
     {
         //Find end vertex within graph's vector.
-        for (Vertex* element : maze.vertices)
+        for (Vertex* element : maze->vertices)
         {
             if (element->xPos == xpos && element->yPos == ypos)
             {
-                maze.end = element;
+                maze->end = element;
             }
         }
         //Calculate the h costs of all vertices in the maze.
         //h cost is distance between a vertex and the end vertex.
-        for (Vertex* node : maze.vertices)
+        for (Vertex* node : maze->vertices)
         {
-            node->hCost = abs(maze.end->xPos - node->xPos) + abs(maze.end->yPos - node->yPos);
+            node->hCost = abs(maze->end->xPos - node->xPos) + abs(maze->end->yPos - node->yPos);
         }
         
-        if (maze.end->xPos == xpos && maze.end->yPos == ypos)
+        if (maze->end->xPos == xpos && maze->end->yPos == ypos)
         {
             return true;
         }
@@ -254,7 +245,7 @@ bool SetEnd(int xpos, int ypos)
 bool GetEnd(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (maze.start->xPos < 0 || maze.start->yPos < 0 || maze.end->xPos >= mazeWidth || maze.end->yPos >= mazeHeight)
+    if (maze->start->xPos < 0 || maze->start->yPos < 0 || maze->end->xPos >= mazeWidth || maze->end->yPos >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;
@@ -263,8 +254,8 @@ bool GetEnd(int& xpos, int& ypos)
     //stored end position variables in the dll.
     else
     {
-        xpos = maze.end->xPos;
-        ypos = maze.end->yPos;
+        xpos = maze->end->xPos;
+        ypos = maze->end->yPos;
         return true;
     }
 }
@@ -272,10 +263,12 @@ bool GetEnd(int& xpos, int& ypos)
 bool Restart()
 {
     //Reassign the current locations to the start location.
-    maze.current->xPos = maze.start->xPos;
-    maze.current->yPos = maze.start->yPos;
+    maze->current->xPos = maze->start->xPos;
+    maze->current->yPos = maze->start->yPos;
+    maze->openList.clear();
+    maze->closedList.clear();
 
-    if (maze.current->xPos < 0 || maze.current->yPos < 0 || maze.current->yPos >= mazeWidth || maze.current->yPos >= mazeHeight)
+    if (maze->current->xPos < 0 || maze->current->yPos < 0 || maze->current->yPos >= mazeWidth || maze->current->yPos >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;

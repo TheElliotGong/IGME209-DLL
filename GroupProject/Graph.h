@@ -10,13 +10,13 @@ class Graph
 		//Instantiate the adjacency list
 		vector<vector<Vertex*>> adjList;
 		vector<Vertex*> vertices;
-		priority_queue<Vertex*> openList;
+		vector<Vertex*> openList;
 		vector<Vertex*> closedList;
 		Vertex* start;
 		Vertex* current;
 		Vertex* end;
-		void AStar();
-		
+		vector<Vertex*> AStar();
+		bool FindVertex(vector<Vertex*> list, Vertex* vertex, int &index);
 		Graph(int width, int height, int** mazeData);
 
 };
