@@ -135,8 +135,17 @@ bool GetNextPosition(int& xpos, int& ypos)
     //Check to see if the current vertex has any neighbors.s
     if (nextSteps.empty() == false)
     {
-        xpos = nextSteps[index]->xPos;
-        ypos = nextSteps[index]->yPos;
+        if (nextSteps[0] == maze->start)
+        {
+            nextSteps.clear();
+            xpos = maze->start->xPos;
+            ypos = maze->start->yPos;
+        }
+        else
+        {
+            xpos = nextSteps[nextSteps.size() - (index + 1)]->xPos;
+            ypos = nextSteps[nextSteps.size() - (index + 1)]->yPos;
+        }
         index++;
         return true;
     }

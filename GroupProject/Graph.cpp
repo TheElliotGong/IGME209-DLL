@@ -119,7 +119,22 @@ vector<Vertex*> Graph::AStar()
 		}
 	}
 
-	return closedList;
+	if (FindVertex(closedList, end, pointer) == false)
+	{
+		closedList.clear();
+		closedList.push_back(start);
+	}
+
+	vector<Vertex*> path;
+
+	path.push_back(closedList[closedList.size() - 1]);
+
+	while (path[path.size() - 1] != start)
+	{
+		path.push_back(path[path.size() - 1]->parent);
+	}
+
+	return path;
 }
 
 bool Graph::FindVertex(vector<Vertex*> list, Vertex* vertex, int &index)
