@@ -50,3 +50,5 @@ GROUPPROJECT_API bool GetStart(int& xpos, int& ypos);
 GROUPPROJECT_API bool SetEnd(int xpos, int ypos);
 //Declare GetEnd function.
 GROUPPROJECT_API bool GetEnd(int& xpos, int& ypos);
+//Declare GetEnd function.
+GROUPPROJECT_API bool Restart();

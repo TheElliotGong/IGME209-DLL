@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "GroupProject.h"
+#include <vector>
 
 /*Authors: Elliot Gong and Michael Xie
 * Purpose: Instantiate functions and use the variables declared in the header.
@@ -23,6 +24,8 @@ GROUPPROJECT_API int fnGroupProject(void)
 const char* names = "Elliot Gong & Michael Xie";
 
 Graph* maze = nullptr;
+int index = 0;
+vector<Vertex*> nextSteps;
 
 /// <summary>
 /// This method returns our group name.
@@ -66,6 +69,7 @@ bool SetMaze(const int** data, int width, int height)
                 mazeData[i][j] = data[i][j];
             }
         }
+
         //Save the dimensions of the 2D maze/array.
         int correct = width * height;
         //Check if the DLL maze data and the parameter maze data are identical.
@@ -83,6 +87,7 @@ bool SetMaze(const int** data, int width, int height)
         if (correct == 0)
         {
             maze = new Graph(width, height, mazeData);
+
             return true;
         }
         else
@@ -122,8 +127,6 @@ int** GetMaze(int& width, int& height)
 bool GetNextPosition(int& xpos, int& ypos)
 {
     //Create a vector to hold the neighbor vertices of the current vertex.
-    vector<Vertex*> nextSteps;
-
     if (nextSteps.empty() == true)
     {
         nextSteps = maze->AStar();
@@ -132,9 +135,9 @@ bool GetNextPosition(int& xpos, int& ypos)
     //Check to see if the current vertex has any neighbors.s
     if (nextSteps.empty() == false)
     {
-        xpos = nextSteps[nextSteps.size() - 1]->xPos;
-        ypos = nextSteps[nextSteps.size() - 1]->yPos;
-        nextSteps.erase(nextSteps.end() - 1);
+        xpos = nextSteps[index]->xPos;
+        ypos = nextSteps[index]->yPos;
+        index++;
         return true;
     }
     else
@@ -162,11 +165,10 @@ bool SetStart(int xpos, int ypos)
             if (element->xPos == xpos && element->yPos == ypos)
             {
                 maze->start = element;
-                
             }
         }
         //Check if the 2 vertices are the same at the beginning.
-        if (maze->current->xPos == xpos && maze->current->yPos == ypos)
+        if (maze->start->xPos == xpos && maze->start->yPos == ypos)
         {
             return true;
         }
@@ -267,6 +269,7 @@ bool Restart()
     maze->current->yPos = maze->start->yPos;
     maze->openList.clear();
     maze->closedList.clear();
+    index = 0;
 
     if (maze->current->xPos < 0 || maze->current->yPos < 0 || maze->current->yPos >= mazeWidth || maze->current->yPos >= mazeHeight)
     {

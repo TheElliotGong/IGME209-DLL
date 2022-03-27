@@ -11,6 +11,6 @@ class Vertex
 
 		Vertex();
 		//Parameterized Constructor
-		Vertex(int xPos, int yPos);
+		Vertex(int x, int y);
 };
 

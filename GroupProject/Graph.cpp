@@ -13,8 +13,7 @@ Graph::Graph(int width, int height, int** mazeData)
 		{
 			if (mazeData[i][j] == 0)
 			{
-				Vertex* vertex = new Vertex(i, j);
-				vertices.push_back(vertex);
+				vertices.push_back(new Vertex(i, j));
 			}
 		}
 	}
@@ -22,7 +21,7 @@ Graph::Graph(int width, int height, int** mazeData)
 	//vector, which holds all the potential neighbor vectors of that particular vertex.
 	for (int p = 0; p < vertices.size(); p++)
 	{
-		adjList[p] = vector<Vertex*>();
+		adjList.push_back(vector<Vertex*>());
 	}
 	//Loop through the 2D array/maze and validate the positions of possible neighbors
 	//of each vertex in the general vector. Then add the neighbors to the corresponding 
@@ -31,21 +30,21 @@ Graph::Graph(int width, int height, int** mazeData)
 	{
 		for (int l = 0; l < vertices.size(); l++)
 		{
-			if ((vertices[l]->xPos == (vertices[k]->xPos - 1)) && (vertices[l]->yPos = vertices[k]->yPos))
+			if ((vertices[l]->xPos == (vertices[k]->xPos - 1)) && (vertices[l]->yPos == vertices[k]->yPos))
 			{
-				adjList[k].push_back(vertices[k]);
+				adjList[k].push_back(vertices[l]);
 			}
-			else if ((vertices[l]->xPos == (vertices[k]->xPos + 1)) && (vertices[l]->yPos = vertices[k]->yPos))
+			else if ((vertices[l]->xPos == (vertices[k]->xPos + 1)) && (vertices[l]->yPos == vertices[k]->yPos))
 			{
-				adjList[k].push_back(vertices[k]);
+				adjList[k].push_back(vertices[l]);
 			}
-			else if ((vertices[l]->xPos == vertices[k]->xPos) && (vertices[l]->yPos = (vertices[k]->yPos - 1)))
+			else if ((vertices[l]->xPos == vertices[k]->xPos) && (vertices[l]->yPos == (vertices[k]->yPos - 1)))
 			{
-				adjList[k].push_back(vertices[k]);
+				adjList[k].push_back(vertices[l]);
 			}
-			else if ((vertices[l]->xPos == vertices[k]->xPos) && (vertices[l]->yPos = (vertices[k]->yPos + 1)))
+			else if ((vertices[l]->xPos == vertices[k]->xPos) && (vertices[l]->yPos == (vertices[k]->yPos + 1)))
 			{
-				adjList[k].push_back(vertices[k]);
+				adjList[k].push_back(vertices[l]);
 			}
 		}
 	}
@@ -60,6 +59,8 @@ vector<Vertex*> Graph::AStar()
 	//First, add the current vertex to the closed list.
 	//Note, at the beginning, the current vertex is also the start vertex.
 	openList.push_back(start);
+	start->gCost = 0;
+	start->fCost = start->gCost + start->hCost;
 	current = start;
 
 	//Set the current vertex's fcost.
@@ -69,14 +70,12 @@ vector<Vertex*> Graph::AStar()
 	//Then, calculate the shortest path from start vertex to end vertex.
 	while (openList.empty() == false)
 	{
-		if (closedList[closedList.size() - 1]->xPos == end->xPos && closedList[closedList.size() - 1]->yPos == end->yPos)
-		{
-			break;
-		}
+		current = openList[0];
+		i = 0;
 
 		for (Vertex* vertex : openList)
 		{
-			if (vertex->fCost < current->fCost)
+			if (vertex->fCost <= current->fCost)
 			{
 				current = vertex;
 				pointer = i;
@@ -86,6 +85,11 @@ vector<Vertex*> Graph::AStar()
 
 		openList.erase(openList.begin() + pointer);
 		closedList.push_back(current);
+
+		if (closedList[closedList.size() - 1]->xPos == end->xPos && closedList[closedList.size() - 1]->yPos == end->yPos)
+		{
+			break;
+		}
 
 		for (int j = 0; j < vertices.size(); j++)
 		{
@@ -106,6 +110,7 @@ vector<Vertex*> Graph::AStar()
 					else if(FindVertex(openList, neighbor, pointer) == false && FindVertex(closedList, neighbor, pointer) == false)
 					{
 						neighbor->gCost = cost;
+						neighbor->fCost = neighbor->gCost + neighbor->hCost;
 						neighbor->parent = current;
 						openList.push_back(neighbor);
 					}
@@ -114,18 +119,8 @@ vector<Vertex*> Graph::AStar()
 		}
 	}
 
-	vector<Vertex*> path;
-	path.push_back(closedList[closedList.size() - 1]);
-
-	while (path[path.size() - 1]->xPos != start->xPos && path[path.size() - 1]->yPos != start->yPos)
-	{
-		path.push_back(path[path.size() - 1]->parent);
-	}
-
-	return path;
+	return closedList;
 }
-
-
 
 bool Graph::FindVertex(vector<Vertex*> list, Vertex* vertex, int &index)
 {
