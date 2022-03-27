@@ -9,7 +9,7 @@
 /*Authors: Elliot Gong and Michael Xie
 * Purpose: Instantiate functions and use the variables declared in the header.
 * Restrictions: Must have functions store and tweak data for the maze.
-* Date: 2/17/2022
+* Date: 3/25/2022
 */
 
 // This is an example of an exported variable
@@ -25,7 +25,7 @@ const char* names = "Elliot Gong & Michael Xie";
 
 Graph* maze = nullptr;
 int index = 0;
-vector<Vertex*> nextSteps;
+
 
 /// <summary>
 /// This method returns our group name.
@@ -126,7 +126,7 @@ int** GetMaze(int& width, int& height)
 /// <param name="ypos">The reference variable to hold the destination y position.</param>
 bool GetNextPosition(int& xpos, int& ypos)
 {
-    //Create a vector to hold the neighbor vertices of the current vertex.
+    //Create a vector to hold the path of vertices that go from start to end.
     if (nextSteps.empty() == true)
     {
         nextSteps = maze->AStar();
@@ -135,6 +135,8 @@ bool GetNextPosition(int& xpos, int& ypos)
     //Check to see if the current vertex has any neighbors.s
     if (nextSteps.empty() == false)
     {
+        //If the first element is indeed the start, clear the vector and set the reference
+        //variables to the start vertex's coordinates.
         if (nextSteps[0] == maze->start)
         {
             nextSteps.clear();
@@ -176,7 +178,7 @@ bool SetStart(int xpos, int ypos)
                 maze->start = element;
             }
         }
-        //Check if the 2 vertices are the same at the beginning.
+        //Check if the start vertex is valid.
         if (maze->start->xPos == xpos && maze->start->yPos == ypos)
         {
             return true;
@@ -222,7 +224,8 @@ bool SetEnd(int xpos, int ypos)
     }
     else
     {
-        //Find end vertex within graph's vector.
+        //Locate the vertex within the maze that matches the desired 
+        //end coordinate positions.
         for (Vertex* element : maze->vertices)
         {
             if (element->xPos == xpos && element->yPos == ypos)
@@ -236,7 +239,7 @@ bool SetEnd(int xpos, int ypos)
         {
             node->hCost = abs(maze->end->xPos - node->xPos) + abs(maze->end->yPos - node->yPos);
         }
-        
+        //See if the end vertex is valid.
         if (maze->end->xPos == xpos && maze->end->yPos == ypos)
         {
             return true;
@@ -256,7 +259,7 @@ bool SetEnd(int xpos, int ypos)
 bool GetEnd(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
-    if (maze->start->xPos < 0 || maze->start->yPos < 0 || maze->end->xPos >= mazeWidth || maze->end->yPos >= mazeHeight)
+    if (maze->end->xPos < 0 || maze->end->yPos < 0 || maze->end->xPos >= mazeWidth || maze->end->yPos >= mazeHeight)
     {
         //Set reference variable values to =1.
         return false;
@@ -276,13 +279,13 @@ bool Restart()
     //Reassign the current locations to the start location.
     maze->current->xPos = maze->start->xPos;
     maze->current->yPos = maze->start->yPos;
+    //Clear the open list and closed lists to preprare for another a star pathfinding run.
     maze->openList.clear();
     maze->closedList.clear();
     index = 0;
-
+    //Check to see if the current/start vertex is valid.
     if (maze->current->xPos < 0 || maze->current->yPos < 0 || maze->current->yPos >= mazeWidth || maze->current->yPos >= mazeHeight)
     {
-        //Set reference variable values to =1.
         return false;
     }
     else

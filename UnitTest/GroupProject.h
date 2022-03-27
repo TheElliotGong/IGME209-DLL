@@ -14,7 +14,7 @@
 /*Authors: Elliot Gong and Michael Xie
 * Purpose: Declare functions and variables to be used.
 * Restrictions: Must declare the required functions.
-* Date: 2/17/2022
+* Date: 3/25/2022
 */
 // This class is exported from the dll
 class GROUPPROJECT_API CGroupProject {
@@ -34,7 +34,6 @@ GROUPPROJECT_API int** mazeData;
 //the start, end, and current positions.
 GROUPPROJECT_API int mazeWidth;
 GROUPPROJECT_API int mazeHeight;
-
 //Declare GetTeam function.
 GROUPPROJECT_API char* GetTeam();
 //Declare the SetMaze function.
