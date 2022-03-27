@@ -36,11 +36,12 @@ char* GetTeam()
     return (char*)names;
 }
 /// <summary>
-/// 
+/// This function creates a maze using the desired width, height, and 2D int array.
 /// </summary>
-/// <param name="data"></param>
-/// <param name="width"></param>
-/// <param name="height"></param>
+/// <param name="data">The 2D int array holding the numerical represenation of a maze.
+/// 0s are valid locations while 1s are maze walls.</param>
+/// <param name="width">The maze's desired width.</param>
+/// <param name="height">The maze's desired height.</param>
 /// <returns>Returns a bool based on the success of the setting of the maze data.</returns>
 bool SetMaze(const int** data, int width, int height)
 {
@@ -69,7 +70,6 @@ bool SetMaze(const int** data, int width, int height)
                 mazeData[i][j] = data[i][j];
             }
         }
-
         //Save the dimensions of the 2D maze/array.
         int correct = width * height;
         //Check if the DLL maze data and the parameter maze data are identical.
@@ -83,7 +83,8 @@ bool SetMaze(const int** data, int width, int height)
                 }
             }
         }
-        //Return true if maze data in DLL is valid, otherwise return false.
+        //Create the graph/maze and return true if maze data in DLL is valid.
+        //Otherwise return false.
         if (correct == 0)
         {
             maze = new Graph(width, height, mazeData);
@@ -110,7 +111,7 @@ int** GetMaze(int& width, int& height)
     {
         return nullptr;
     }
-    //Otherwise, return it.
+    //Otherwise, return it and set the reference parameters' values.
     else
     {
         width = mazeWidth;
@@ -120,10 +121,12 @@ int** GetMaze(int& width, int& height)
 }
     
 /// <summary>
-/// This function sets the next positon to move to.
+/// This function returns a position for the current vertex to move to. The next location
+/// will be on a path that will leads to the end vertex. 
 /// </summary>
-/// <param name="xpos">The reference variable to hold the destination x position.</param>
-/// <param name="ypos">The reference variable to hold the destination y position.</param>
+/// <param name="xpos">The variable that will hold the next location's x coordinate.</param>
+/// <param name="ypos">The variable that will hold the next location's y coordinate.</param>
+/// <returns>Returns true or false depending whether there is a valid next position or not.</returns>
 bool GetNextPosition(int& xpos, int& ypos)
 {
     //Create a vector to hold the path of vertices that go from start to end.
@@ -132,7 +135,7 @@ bool GetNextPosition(int& xpos, int& ypos)
         nextSteps = maze->AStar();
     }
 
-    //Check to see if the current vertex has any neighbors.s
+    //Check to see if the current vertex has any neighbors.
     if (nextSteps.empty() == false)
     {
         //If the first element is indeed the start, clear the vector and set the reference
@@ -143,11 +146,15 @@ bool GetNextPosition(int& xpos, int& ypos)
             xpos = maze->start->xPos;
             ypos = maze->start->yPos;
         }
+        //Otherwise, set the reference variables to the values of a vertex's coordinates.
+        //This vertex is accessed from the vector that contains the "path" from start to finish.
         else
         {
             xpos = nextSteps[nextSteps.size() - (index + 1)]->xPos;
             ypos = nextSteps[nextSteps.size() - (index + 1)]->yPos;
         }
+        //Increment the index so that we could access a different vertex each time this function
+        //is called.
         index++;
         return true;
     }
@@ -158,11 +165,15 @@ bool GetNextPosition(int& xpos, int& ypos)
 }
 
 /// <summary>
-/// This method sets the starting location of the maze.
+/// This function sets the location of the start vertex within a graph/maze.
 /// </summary>
-/// <param name="xpos">The value used to set the x position.</param>
+/// <param name="xpos">The x coordinate of the start vertex.</param>
+/// <param name="ypos">The y coordinate of the start vertex.</param>
+/// <returns>Returns true or false depending if the parameters are valid and if 
+/// the start vertex was indeed saved.</returns>
 bool SetStart(int xpos, int ypos)
 {
+    //Check if the parameters are valid.
     if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight)
     {
         return false;
@@ -170,7 +181,7 @@ bool SetStart(int xpos, int ypos)
     else
     {
         //Instantiate the Start and Current vertices.
-        //Find end vertex within graph's vector.
+        //Find the end vertex within the graph.
         for (Vertex* element : maze->vertices)
         {
             if (element->xPos == xpos && element->yPos == ypos)
@@ -191,10 +202,11 @@ bool SetStart(int xpos, int ypos)
     
 }
 /// <summary>
-/// Access the start positions and place their values into the reference parameters.
+/// Save the start vertex's positions into reference variables.
 /// </summary>
-/// <param name="xpos">The reference variable that will hold the x position.</param>
-/// <param name="ypos">The reference variable that will hold the y position.</param>
+/// <param name="xpos">The variable that will hold the start vertex's x coordinate.</param>
+/// <param name="ypos">The variable that will hold the start vertex's x coordinate.</param>
+/// <returns>Returns true of false seeing if the start vertex is valid and saved.</returns>
 bool GetStart(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
@@ -212,12 +224,15 @@ bool GetStart(int& xpos, int& ypos)
     }
 }
 /// <summary>
-/// Save the end position to the dll file.
+/// This function sets the location of the end vertex within a graph/maze.
 /// </summary>
-/// <param name="xpos">The new x position of the end location.</param>
-/// <param name="ypos">The new y positoin of the end location.</param>
+/// <param name="xpos">The x coordinate of the end vertex.</param>
+/// <param name="ypos">The y coordinate of the end vertex.</param>
+/// <returns>Returns true or false depending if the parameters are valid and if 
+/// the end vertex was indeed saved.</returns>
 bool SetEnd(int xpos, int ypos)
 {
+    //Check if the parameters are valid.
     if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight)
     {
         return false;
@@ -252,10 +267,11 @@ bool SetEnd(int xpos, int ypos)
     
 }
 /// <summary>
-/// Access the end positions and place their values into the reference parameters.
+/// Save the end vertex's positions into reference variables.
 /// </summary>
-/// <param name="xpos">The reference variable that will hold the x position.</param>
-/// <param name="ypos">The reference variable that will hold the y position.</param>
+/// <param name="xpos">The variable that will hold the end vertex's x coordinate.</param>
+/// <param name="ypos">The variable that will hold the end vertex's x coordinate.</param>
+/// <returns>Returns true of false seeing if the end vertex is valid and saved.</returns>
 bool GetEnd(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
@@ -273,7 +289,11 @@ bool GetEnd(int& xpos, int& ypos)
         return true;
     }
 }
-
+/// <summary>
+/// This function moves the current vertex back to the start and clears the graph's 
+/// open and closed lists to set it up for another round of pathfinding.
+/// </summary>
+/// <returns>Returns true or false depending if the current position is within the maze.</returns>
 bool Restart()
 {
     //Reassign the current locations to the start location.

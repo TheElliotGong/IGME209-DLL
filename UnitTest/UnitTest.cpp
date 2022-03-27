@@ -274,12 +274,12 @@ namespace UnitTest
 			bool createdMaze = SetMaze((const int**)test, 3, 4);
 			bool createdStart = SetStart(0, 2);
 			bool createdEnd = SetEnd(2, 1);
-
+			//Declare some int variables to be used for the getnextposition function.
 			int x = 0;
 			int y = 0;
 			//Call the get next position method to perform a star pathfinding.
 			bool worked = GetNextPosition(x, y);
-			
+			//Call the restart function.
 			bool restarted = Restart();
 
 			Assert::AreEqual(true, worked);
