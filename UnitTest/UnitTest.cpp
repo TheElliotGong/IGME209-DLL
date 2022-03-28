@@ -279,10 +279,12 @@ namespace UnitTest
 			int y = 0;
 			//Call the get next position method to perform a star pathfinding.
 			bool worked = GetNextPosition(x, y);
+			worked = GetNextPosition(x, y);
+			worked = GetNextPosition(x, y);
 			//Call the restart function.
 			bool restarted = Restart();
 
-			Assert::AreEqual(true, worked);
+			Assert::AreEqual(restarted, true);
 		}
 
 	};

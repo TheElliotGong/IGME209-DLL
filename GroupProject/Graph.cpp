@@ -147,22 +147,27 @@ vector<Vertex*> Graph::AStar()
 			}
 		}
 	}
-	//See if  the end vertex is in the closed list. At that point, claer 
+	//See if the end vertex is in the closed list.
 	if (FindVertex(closedList, end, pointer) == false)
 	{
+		//If it's not we clear closedlist and push start to indicate no path.
 		closedList.clear();
 		closedList.push_back(start);
 	}
 	//Create a vector that will hold the correct path from the start to the end.
 	vector<Vertex*> path;
 
+	//Push the end vertex into the path.
 	path.push_back(closedList[closedList.size() - 1]);
 
+	//While the path does not contain start.
 	while (path[path.size() - 1] != start)
 	{
+		//Keep pushing the parent of the current vertex.
 		path.push_back(path[path.size() - 1]->parent);
 	}
 
+	//Return vector of the path.
 	return path;
 }
 /// <summary>

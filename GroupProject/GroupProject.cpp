@@ -26,7 +26,6 @@ const char* names = "Elliot Gong & Michael Xie";
 Graph* maze = nullptr;
 int index = 0;
 
-
 /// <summary>
 /// This method returns our group name.
 /// </summary>
@@ -296,21 +295,17 @@ bool GetEnd(int& xpos, int& ypos)
 /// <returns>Returns true or false depending if the current position is within the maze.</returns>
 bool Restart()
 {
-    //Reassign the current locations to the start location.
-    maze->current->xPos = maze->start->xPos;
-    maze->current->yPos = maze->start->yPos;
-    //Clear the open list and closed lists to preprare for another a star pathfinding run.
-    maze->openList.clear();
-    maze->closedList.clear();
     index = 0;
-    //Check to see if the current/start vertex is valid.
-    if (maze->current->xPos < 0 || maze->current->yPos < 0 || maze->current->yPos >= mazeWidth || maze->current->yPos >= mazeHeight)
+    //Check to see if the first vertex of the path vector is the start vertex.
+    if (nextSteps[nextSteps.size() - (index + 1)]->xPos == maze->start->xPos && nextSteps[nextSteps.size() - (index + 1)]->yPos == maze->start->yPos)
     {
-        return false;
+        //If yes, return true
+        return true;
     }
     else
     {
-        return true;
+        //Otherwise, return false
+        return false;
     }
 }
 

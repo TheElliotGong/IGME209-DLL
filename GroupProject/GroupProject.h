@@ -33,7 +33,7 @@ GROUPPROJECT_API int** mazeData;
 //the start, end, and current positions.
 GROUPPROJECT_API int mazeWidth;
 GROUPPROJECT_API int mazeHeight;
-GROUPPROJECT_API vector<Vertex*> nextSteps;
+vector<Vertex*> nextSteps;
 //Declare GetTeam function.
 GROUPPROJECT_API char* GetTeam();
 //Declare SetMaze function.
