@@ -10,7 +10,7 @@
 /// </summary>
 /// <param name="x">The vertex's x coordinate.</param>
 /// <param name="y">The vertex's y coordinate.</param>
-Vertex::Vertex(int x, int y)
+Vertex::Vertex(int x, int y, int weightCost)
 {
 	//Set the x and y coordinates, and give all the other members a default value.
 	xPos = x;
@@ -18,6 +18,7 @@ Vertex::Vertex(int x, int y)
 	hCost = 0;
 	gCost = 0;
 	fCost = 0;
+	weight = weightCost;
 	parent = nullptr;
 }
 /// <summary>
@@ -31,5 +32,6 @@ Vertex::Vertex()
 	hCost = 0;
 	gCost = 0;
 	fCost = 0;
+	weight = 1;
 	parent = nullptr;
 }

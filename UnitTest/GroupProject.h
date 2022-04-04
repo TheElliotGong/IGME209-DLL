@@ -33,20 +33,22 @@ GROUPPROJECT_API int** mazeData;
 //the start, end, and current positions.
 GROUPPROJECT_API int mazeWidth;
 GROUPPROJECT_API int mazeHeight;
+extern "C" {
+	GROUPPROJECT_API char* GetTeam();
+	//Declare the SetMaze function.
+	GROUPPROJECT_API bool SetMaze(const int** data, int width, int height);
+	//Declare GetMaze function.
+	GROUPPROJECT_API int** GetMaze(int& width, int& height);
+	//Declare GetNextPosition function.
+	GROUPPROJECT_API bool GetNextPosition(int& xpos, int& ypos);
+	//Declare SetStart function.
+	GROUPPROJECT_API bool SetStart(int xpos, int ypos);
+	//Declare GetStart function.
+	GROUPPROJECT_API bool GetStart(int& xpos, int& ypos);
+	//Declare SetEnd function.
+	GROUPPROJECT_API bool SetEnd(int xpos, int ypos);
+	//Declare GetEnd function.
+	GROUPPROJECT_API bool GetEnd(int& xpos, int& ypos);
+	GROUPPROJECT_API bool Restart();
+}
 //Declare GetTeam function.
-GROUPPROJECT_API char* GetTeam();
-//Declare the SetMaze function.
-GROUPPROJECT_API bool SetMaze(const int** data, int width, int height);
-//Declare GetMaze function.
-GROUPPROJECT_API int** GetMaze(int& width, int& height);
-//Declare GetNextPosition function.
-GROUPPROJECT_API bool GetNextPosition(int& xpos, int& ypos);
-//Declare SetStart function.
-GROUPPROJECT_API bool SetStart(int xpos, int ypos);
-//Declare GetStart function.
-GROUPPROJECT_API bool GetStart(int& xpos, int& ypos);
-//Declare SetEnd function.
-GROUPPROJECT_API bool SetEnd(int xpos, int ypos);
-//Declare GetEnd function.
-GROUPPROJECT_API bool GetEnd(int& xpos, int& ypos);
-GROUPPROJECT_API bool Restart();

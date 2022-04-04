@@ -18,16 +18,17 @@
 Graph::Graph(int width, int height, int** mazeData)
 {
 	//Go through the 2D array that represents a maze, where '0's represent
-	//path elements and '1's represent walls. So for every element containing 
-	//the value '0', create a "Vertex" and add it to the vector that will hold 
+	//walls and nonzeroes represent path elements. Each value corresponds to a 
+	//path element's cost. So for every element that contains a nonzero value, 
+	//create a "Vertex" and add it to the vector that will hold 
 	//all the available path spots in a maze.
 	for (int i = 0; i < width; i++)
 	{
 		for (int j = 0; j < height; j++)
 		{
-			if (mazeData[i][j] == 0)
+			if (mazeData[i][j] != 0)
 			{
-				vertices.push_back(new Vertex(i, j));
+				vertices.push_back(new Vertex(i, j, mazeData[i][j]));
 			}
 		}
 	}
@@ -119,7 +120,7 @@ vector<Vertex*> Graph::AStar()
 				for (Vertex* neighbor : adjList[j])
 				{
 					//Calculate the cost from the start to one of the current vertex's neighbor.
-					int cost = current->gCost + 1;
+					int cost = current->gCost + neighbor->weight;
 					//If the neighbor is already in the open list and its distance from start is 
 					//greater than the cost, remove it from the open list.
 					if (FindVertex(openList, neighbor, pointer) == true && neighbor->gCost > cost)

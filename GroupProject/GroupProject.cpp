@@ -30,7 +30,7 @@ int index = 0;
 /// This method returns our group name.
 /// </summary>
 /// <returns>The string holding our team name.</returns>
-char* GetTeam()
+extern "C" char* GetTeam()
 {
     return (char*)names;
 }
@@ -42,7 +42,7 @@ char* GetTeam()
 /// <param name="width">The maze's desired width.</param>
 /// <param name="height">The maze's desired height.</param>
 /// <returns>Returns a bool based on the success of the setting of the maze data.</returns>
-bool SetMaze(const int** data, int width, int height)
+extern "C" bool SetMaze(const int** data, int width, int height)
 {
     //Return false if if parameters are invalid.
     if (width <= 0 || height <= 0 || data == nullptr)
@@ -103,7 +103,7 @@ bool SetMaze(const int** data, int width, int height)
 /// <param name="width">The reference variable to hold the maze width.</param>
 /// <param name="height">The reference variable to hold the maze height.</param>
 /// <returns>Returns the double pointer/2D pointer array of maze values. </returns>
-int** GetMaze(int& width, int& height)
+extern "C" int** GetMaze(int& width, int& height)
 {
     //Check if maze data hasn't been set yet.
     if (mazeData == nullptr || mazeHeight == 0 || mazeWidth == 0)
@@ -126,7 +126,7 @@ int** GetMaze(int& width, int& height)
 /// <param name="xpos">The variable that will hold the next location's x coordinate.</param>
 /// <param name="ypos">The variable that will hold the next location's y coordinate.</param>
 /// <returns>Returns true or false depending whether there is a valid next position or not.</returns>
-bool GetNextPosition(int& xpos, int& ypos)
+extern "C" bool GetNextPosition(int& xpos, int& ypos)
 {
     //Create a vector to hold the path of vertices that go from start to end.
     if (nextSteps.empty() == true)
@@ -170,7 +170,7 @@ bool GetNextPosition(int& xpos, int& ypos)
 /// <param name="ypos">The y coordinate of the start vertex.</param>
 /// <returns>Returns true or false depending if the parameters are valid and if 
 /// the start vertex was indeed saved.</returns>
-bool SetStart(int xpos, int ypos)
+extern "C" bool SetStart(int xpos, int ypos)
 {
     //Check if the parameters are valid.
     if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight)
@@ -206,7 +206,7 @@ bool SetStart(int xpos, int ypos)
 /// <param name="xpos">The variable that will hold the start vertex's x coordinate.</param>
 /// <param name="ypos">The variable that will hold the start vertex's x coordinate.</param>
 /// <returns>Returns true of false seeing if the start vertex is valid and saved.</returns>
-bool GetStart(int& xpos, int& ypos)
+extern "C" bool GetStart(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
     if (maze->start->xPos < 0 || maze->start->yPos < 0 || maze->start->xPos >= mazeWidth || maze->start->yPos >= mazeHeight )
@@ -229,7 +229,7 @@ bool GetStart(int& xpos, int& ypos)
 /// <param name="ypos">The y coordinate of the end vertex.</param>
 /// <returns>Returns true or false depending if the parameters are valid and if 
 /// the end vertex was indeed saved.</returns>
-bool SetEnd(int xpos, int ypos)
+extern "C" bool SetEnd(int xpos, int ypos)
 {
     //Check if the parameters are valid.
     if (xpos < 0 || ypos < 0 || xpos >= mazeWidth || ypos >= mazeHeight)
@@ -271,7 +271,7 @@ bool SetEnd(int xpos, int ypos)
 /// <param name="xpos">The variable that will hold the end vertex's x coordinate.</param>
 /// <param name="ypos">The variable that will hold the end vertex's x coordinate.</param>
 /// <returns>Returns true of false seeing if the end vertex is valid and saved.</returns>
-bool GetEnd(int& xpos, int& ypos)
+extern "C" bool GetEnd(int& xpos, int& ypos)
 {
     //Check if positions are within maze bounds and aren't null.
     if (maze->end->xPos < 0 || maze->end->yPos < 0 || maze->end->xPos >= mazeWidth || maze->end->yPos >= mazeHeight)
@@ -293,7 +293,7 @@ bool GetEnd(int& xpos, int& ypos)
 /// open and closed lists to set it up for another round of pathfinding.
 /// </summary>
 /// <returns>Returns true or false depending if the current position is within the maze.</returns>
-bool Restart()
+extern "C" bool Restart()
 {
     index = 0;
     //Check to see if the first vertex of the path vector is the start vertex.

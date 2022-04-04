@@ -15,10 +15,11 @@ class Vertex
 		int hCost;
 		int fCost;
 		int gCost;
+		int weight;
 		Vertex* parent;
 		//Default constructor
 		Vertex();
 		//Parameterized Constructor
-		Vertex(int x, int y);
+		Vertex(int x, int y, int weightCost);
 };
 
