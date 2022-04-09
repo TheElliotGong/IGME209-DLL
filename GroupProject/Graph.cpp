@@ -26,7 +26,7 @@ Graph::Graph(int width, int height, int** mazeData)
 	{
 		for (int j = 0; j < height; j++)
 		{
-			if (mazeData[i][j] != 0)
+			if (mazeData[i][j] > 0 && mazeData[i][j] < 100)
 			{
 				vertices.push_back(new Vertex(i, j, mazeData[i][j]));
 			}
