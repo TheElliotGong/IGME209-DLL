@@ -28,12 +28,7 @@ public:
 extern GROUPPROJECT_API int nGroupProject;
 GROUPPROJECT_API int fnGroupProject(void);
 //Created a double pointer used to hold the maze data via a 2d array.
-GROUPPROJECT_API int** mazeData;
-//These int variables hold the maze's width and height, as well as
-//the start, end, and current positions.
-GROUPPROJECT_API int mazeWidth;
-GROUPPROJECT_API int mazeHeight;
-vector<Vertex*> nextSteps;
+
 //Declare GetTeam function.
 extern "C" {
 	GROUPPROJECT_API char* GetTeam();
@@ -53,5 +48,11 @@ extern "C" {
 	GROUPPROJECT_API bool GetEnd(int& xpos, int& ypos);
 	//Declare GetEnd function.
 	GROUPPROJECT_API bool Restart();
+	GROUPPROJECT_API int** mazeData;
+	//These int variables hold the maze's width and height, as well as
+	//the start, end, and current positions.
+	GROUPPROJECT_API int mazeWidth;
+	GROUPPROJECT_API int mazeHeight;
+	vector<Vertex*> nextSteps;
 }
 
