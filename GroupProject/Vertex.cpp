@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Vertex.h"
 /*Authors: Elliot Gong and Michael Xie
-* Purpose: Update the Vertex's class 2 constructors
+* Purpose: Update the Vertex's class 2 constructors.
 * Restrictions: Must account for Vertex objects having different weights/costs.
 * Date: 4/25/2022*/
 

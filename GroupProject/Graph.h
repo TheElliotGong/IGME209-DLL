@@ -7,7 +7,7 @@ using namespace std;
 * Purpose: Declare a Graph class that will hold Vertex objects and perform A* pathfinding.
 * Restrictions: Must have necessary members and methods in order to store vertices
 * and perform A* pathfinding.
-* Date: 3/25/2022
+* Date: 4/25/2022
 */
 class Graph
 {

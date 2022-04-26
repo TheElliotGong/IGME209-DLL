@@ -5,7 +5,7 @@
 * Date: 4/25/2022*/
 class Vertex
 {
-	//ALl members and constructors are public.
+	//All members and constructors are public.
 	public:
 		//Necessary members, like the coordinates, weight, heuristic-related costs, and 
 		//a vertex's "parent" vertex.

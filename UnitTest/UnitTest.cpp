@@ -7,7 +7,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 * Purpose: Test the DLL functions in a unit test project.
 * Restrictions: Must rework the current unit test methods and add a new one for 
 * the Restart function.
-* Date: 3/25/2022
+* Date: 4/25/2022
 */
 namespace UnitTest
 {
