@@ -7,9 +7,9 @@
 #include <vector>
 
 /*Authors: Elliot Gong and Michael Xie
-* Purpose: Instantiate functions and use the variables declared in the header.
-* Restrictions: Must have functions store and tweak data for the maze.
-* Date: 3/25/2022
+* Purpose: Update functions by adding extern "c".
+* Restrictions: To prevent name mangling of functions.
+* Date: 4/25/2022
 */
 
 // This is an example of an exported variable

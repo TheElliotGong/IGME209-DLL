@@ -1,15 +1,16 @@
 #include "pch.h"
 #include "Vertex.h"
 /*Authors: Elliot Gong and Michael Xie
-* Purpose: Initialize a Vertex class that will represent a "spot" within a maze/Graph.
-* Restrictions: Must initialize the 2 constructors declared in the Vertex header.
-* Date: 3/25/2022*/
+* Purpose: Update the Vertex's class 2 constructors
+* Restrictions: Must account for Vertex objects having different weights/costs.
+* Date: 4/25/2022*/
 
 /// <summary>
 /// The parameterized constructor of the Vertex class.
 /// </summary>
 /// <param name="x">The vertex's x coordinate.</param>
 /// <param name="y">The vertex's y coordinate.</param>
+/// <param name="weightCost">The vertex's path cost/weight</param>
 Vertex::Vertex(int x, int y, int weightCost)
 {
 	//Set the x and y coordinates, and give all the other members a default value.

@@ -14,8 +14,8 @@
 #include <vector>
 
 /*Authors: Elliot Gong and Michael Xie
-* Purpose: Declare functions and variables to be used.
-* Restrictions: Must declare the required functions.
+ Purpose: Set functions to extern "c" functions.
+* Restrictions: Prevent name mangling of dll functions.
 * Date: 3/25/2022
 */
 // This class is exported from the dll

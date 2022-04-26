@@ -2,10 +2,10 @@
 #include "Graph.h"
 #include "Vertex.h"
 /*Authors: Elliot Gong and Michael Xie
-* Purpose: Initialize the Graph class that will store vertices and perform A* pathfinding.
-* Restrictions: Must incorporate A* star pathfinding to find the shortest distance 
-* between a 'start' and 'end' vertex.
-* Date: 3/25/2022
+* Purpose: Update the Graph Class to take in data differently
+* Restrictions: Walls are represented by 0s and path elements/vertices are represented
+* by nonzero values.
+* Date: 4/25/2022
 */
 
 /// <summary>
